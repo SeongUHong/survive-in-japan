@@ -11,23 +11,15 @@
     </a>
   </div>
   <div class="main-top-category">
-    <div class="main-top-category-btn btn-group">
-      <button class="btn btn-secondary btn-md dropdown-toggle bg-white text-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        한국어 카테고리
-      </button>
-      <ul class="dropdown-menu">여행</ul>
-      <ul class="dropdown-menu">음식</ul>
-    </div>
-    <div class="main-top-category-btn btn-group">
-      <button class="btn btn-secondary btn-md dropdown-toggle bg-white text-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        日本語カテゴリー
-      </button>
-      <ul class="dropdown-menu">旅行</ul>
-      <ul class="dropdown-menu">料理</ul>
-    </div>
-    <div class="main-top-category-name">
-      <h1>旅行</h1>
-      <hr class="main-top-category-name-line">
-    </div>
+    @foreach($categoryList as $category)
+      <div class="main-top-category-btn btn-group">
+        <button class="btn btn-secondary btn-md dropdown-toggle bg-white text-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ $category['name'] }}
+        </button>
+        @foreach($category['children'] as $childCategories)
+          <ul class="dropdown-menu">{{ $childCategories['name'] }}</ul>
+        @endforeach
+      </div>
+    @endforeach
   </div>
 </div>

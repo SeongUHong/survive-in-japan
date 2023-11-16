@@ -21,15 +21,17 @@ class CategoriesSeeder extends Seeder
 		$now = Carbon::now()->toDateTimeString();
 		$categories = [
 			[
-				'id'         => \App\Consts\Category::BASE['KOREAN'],
+				'id'         => \App\Consts\Category::BASE_CATEGORIES['KOREAN'],
+				'depth'      => 1,
 				'parent_id'  => 0,
-				'name'       => '한국어',
+				'name'       => '한국어 카테고리',
 				'created_at' => $now,
 			],
 			[
-				'id'         => \App\Consts\Category::BASE['JAPANESE'],
+				'id'         => \App\Consts\Category::BASE_CATEGORIES['JAPANESE'],
+				'depth'      => 1,
 				'parent_id'  => 0,
-				'name'       => '일본어',
+				'name'       => '日本語カテゴリー',
 				'created_at' => $now,
 			],
 		];

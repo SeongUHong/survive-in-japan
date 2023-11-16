@@ -15,9 +15,11 @@ return new class extends Migration
 	{
 		Schema::create('categories', function (Blueprint $table) {
 			$table->id();
+			$table->unsignedTinyInteger('depth'); // 카테고리 단계
 			$table->unsignedBigInteger('parent_id'); // 상위 카테고리
 			$table->string('name', 50);
 			$table->timestamp('created_at');
+			$table->index('parent_id');
 		});
 	}
 

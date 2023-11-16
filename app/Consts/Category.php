@@ -3,9 +3,11 @@ namespace App\Consts;
 
 class Category
 {
-	// 최상위 카테고리
-	const BASE = [ 
-		"KOREAN"    => 1, // 한국어
-		"JAPANESE"  => 2, // 일본어
+	// 카테고리 단계 수
+	const MIN_CATEGORY_DEPTH = 1;
+	const MAX_CATEGORY_DEPTH = 3;
+	const BASE_CATEGORIES = [
+		'KOREAN'   => 1,
+		'JAPANESE' => 2,
 	];
 }
