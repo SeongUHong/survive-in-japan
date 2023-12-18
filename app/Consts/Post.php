@@ -9,4 +9,7 @@ class Post
 		"DRAFT"   => 2, // 임시 저장
 		"REMOVE"  => 3, // 삭제 대기
 	];
+
+	// 페이지 당 표시 건 수
+	const NUM_PER_PAGE = 10;
 }

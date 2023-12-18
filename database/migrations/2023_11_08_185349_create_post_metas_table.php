@@ -18,6 +18,7 @@ return new class extends Migration
 			$table->unsignedBigInteger('post_id');
 			$table->string('key');
 			$table->text('value');
+			$table->index('post_id');
 		});
 	}
 

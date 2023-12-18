@@ -14,8 +14,9 @@
       <div class="main-middle-contents-box row">
         <!-- 일본어 컨텐츠 -->
         <div class="main-middle-contents-box-japanese col-12 col-md-6">
-          @include('main/_sub/content_card')
-          @include('main/_sub/content_card')
+          @foreach($postList as $childCategories)
+            @include('main/_sub/content_card', [''])
+          @endforeach
         </div>
         <!-- 한국어 컨텐츠 -->
         <div class="main-middle-contents-box-korean col-12 col-md-6">

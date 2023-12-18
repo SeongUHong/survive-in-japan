@@ -20,6 +20,7 @@ return new class extends Migration
 				$table->text('title'); // 제목
 				$table->longText('content'); // 내용
 				$table->unsignedTinyInteger('status'); // 1:공개 2:임시 저장 3:삭제 대기
+				$table->index('category_id');
 				$table->index('status');
 				$table->timestamps();
 			});
