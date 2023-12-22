@@ -23,15 +23,25 @@ class Post {
 		return $self;
 	}
 
-	public function BuildMultiByPage($page) {
+	public function BuildMultiByPageAndCategoryIds($page, $categoryIds) {
+		if (!is_array($categoryIds) || count($categoryIds) <= 0) {
+			return [];
+		}
 		// 페이지에 표시할 포스트 범위
 		$postNum = \App\Consts\Post::NUM_PER_PAGE;
 		$offset = $postNum * ($page - 1);
 		// 포스트 모델
-		$postModels = \App\Models\Post::where('status', 1)->orderByDesc('id')->offset($offset)->limit($postNum)->get();
+		$postModels = \App\Models\Post::whereIn('category_id', $categoryIds)
+			->where('status', 1)
+			->orderByDesc('id')
+			->offset($offset)
+			->limit($postNum)
+			->get();
+
 		if ($postModels->count() <= 0) {
 			return [];
 		}
+
 		// 포스트 ID
 		$postIds = $postModels->map(function($postModel) {
 			return $postModel->id;

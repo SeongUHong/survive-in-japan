@@ -2,6 +2,7 @@
 namespace App\Entities;
 
 use App\Logics\Util;
+use Illuminate\Support\Facades\Cache;
 
 class Category {
 	public $category; // 모델
@@ -17,7 +18,7 @@ class Category {
 	// 자식 카테고리 생성
 	// parameter : 부모 카테고리 ID
 	public function BuildChildrenByParentId($parentId) {
-		$categoryModels = $this->_getAllCategoryModelsWithCache();
+		$categoryModels = $this->_GetAllCategoryModels();
 		$categoryByParentId = $categoryModels->groupBy('parent_id');
 		// 자식 카테고리가 없는 경우, 빈 배열 반환
 		if(Util::CanGetArrayValue($categoryByParentId, $parentId) == false) {
@@ -36,7 +37,7 @@ class Category {
 
 	// 모든 카테고리 인스턴스 생성
 	public function BuildAll() {
-		$categoryModels = $this->_getAllCategoryModelsWithCache();
+		$categoryModels = $this->_GetAllCategoryModels();
 		// 최상위 카테고리 취득
 		$baseCategories = $categoryModels->groupBy('depth')->get(\App\Consts\Category::MIN_CATEGORY_DEPTH);
 
@@ -44,7 +45,52 @@ class Category {
 			return $this->Build($category);
 		});
 
-		return $selves;
+		return $selves->toArray();
+	}
+
+	// 지정 카테고리ID에 대한 인스턴스 생성
+	// return : self
+	public function BuildMultiByCategoryId($categoryId) {
+		if (is_null($categoryId)) {
+			return null;
+		}
+
+		$category = null;
+		foreach ($this->_GetAllCategoryModels() as $model) {
+			if ($model->id == $categoryId) {
+				$category = $model;
+				break;
+			}
+		}
+
+		if (is_null($category)) {
+			return null;
+		}
+
+		return $this->Build($category);
+	}
+
+	// 자신 + 하위 카테고리ID 리스트
+	public function GetCategoryIdsRecursive() {
+		$categoryIds = [];
+		array_push($categoryIds, $this->category->id);
+		array_merge($categoryIds, $this->GetChildCategoryIdsRecursive());
+		return $categoryIds;
+	}
+
+	// 하위 카테고리ID 리스트
+	public function GetChildCategoryIdsRecursive() {
+		if (count($this->childCategoryEntities) <= 0) {
+			return [];
+		}
+
+		$categoryIds = [];
+		foreach($this->childCategoryEntities as $child) {
+			array_push($categoryIds, $child->id);
+			array_merge($categoryIds, $this->GetChildCategoryIdsRecursive());
+		}
+
+		return $categoryIds;
 	}
 
 	public function ToArray() {
@@ -59,8 +105,8 @@ class Category {
 	}
 
 	// 모든 카테고리 모델 취득
-	private function _getAllCategoryModels() {
-		return Cache::remember('_getAllCategoryModels', \App\Consts\Cache::CACHE_TIME, function () {
+	private function _GetAllCategoryModels() {
+		return Cache::remember('_GetAllCategoryModels', \App\Consts\Cache::CACHE_TIME, function () {
 			return \App\Models\Category::all();
 		});
 	}

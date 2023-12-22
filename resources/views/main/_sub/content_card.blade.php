@@ -4,13 +4,10 @@
   </div>
   <div class="main-middle-content-text col-9">
     <div class="main-middle-content-text-title fs-5 fw-bold">
-      일본어 기사 일본어 기사 일본어 기사 일본어 기사 일본어 기사 일본어 기사 일본어 기사
+      {{ $post['title'] }}
     </div>
     <div class="main-middle-content-text-detail">
-      일본어 기사 일본어 기사 일본어 기사 일본어 기사 일본어 기사 일본어 기사 일본어 기사
-      일본어 기사 일본어 기사 일본어 기사 일본어 기사 일본어 기사 일본어 기사 일본어 기사
-      일본어 기사 일본어 기사 일본어 기사 일본어 기사 일본어 기사 일본어 기사 일본어 기사
-      일본어 기사 일본어 기사 일본어 기사 일본어 기사 일본어 기사 일본어 기사 일본어 기사
+      {{ $post['content'] }}
     </div>
   </div>
 </div>
