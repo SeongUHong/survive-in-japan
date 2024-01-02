@@ -6,7 +6,7 @@
     <div class="main-middle-content-text-title fs-5 fw-bold">
       {{ $post['title'] }}
     </div>
-    <div class="main-middle-content-text-detail">
+    <div class="main-middle-content-text-detail fs-6">
       {{ $post['content'] }}
     </div>
   </div>
