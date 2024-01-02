@@ -23,16 +23,31 @@ class Post {
 		return $self;
 	}
 
-	public function BuildMultiByPageAndCategoryIds($page, $categoryIds) {
+	public function BuildById($postId) {
+		$postModel = \App\Models\Post::find($postId);
+		$postMetaModels = \App\Models\PostMeta::where('post_id', $postId)->get();
+		return $this->Build($postModel, $postMetaModels);		
+	}
+
+	public function BuildMultiByPageAndCategoryIds($page, $categoryIds, $options) {
 		if (!is_array($categoryIds) || count($categoryIds) <= 0) {
 			return [];
 		}
+		// 취득할 스테이터스 확인
+		// 옵션값이 없는 경우 PUBLIC스테이터스로 취득
+		$statusList = [];
+		if (is_array($options) && (Util::CanGetArrayValue($options, 'status'))) {
+			$statusList = $options['status'];
+		} else {
+			array_push($statusList, \App\Consts\Post::STATUS['PUBLIC']);
+		}
+
 		// 페이지에 표시할 포스트 범위
 		$postNum = \App\Consts\Post::NUM_PER_PAGE;
 		$offset = $postNum * ($page - 1);
 		// 포스트 모델
 		$postModels = \App\Models\Post::whereIn('category_id', $categoryIds)
-			->where('status', 1)
+			->whereIn('status', $statusList)
 			->orderByDesc('id')
 			->offset($offset)
 			->limit($postNum)
@@ -71,6 +86,8 @@ class Post {
 			'title'        => $this->post->title,
 			'content'      => $this->post->content,
 			'updated_at'   => $this->post->updated_at,
+			'status'       => $this->post->status,
+			'category_id'  => $this->post->category_id,
 		];
 
 		$metas = [];

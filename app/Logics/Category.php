@@ -17,30 +17,6 @@ class Category
 		});
 	}
 
-	// 한국어 카테고리 취득
-	// return : []
-	public function GetKoreanCategories() {
-		return Cache::remember('GetKoreanCategories', \App\Consts\Cache::CACHE_TIME, function () {
-			$entity = (new \App\Entities\Category)->BuildMultiByCategoryId(\App\Consts\Category::BASE_CATEGORIES['KOREAN']);
-			if (is_null($entity)) {
-				return [];
-			}
-			return $entity->ToArray();
-		});
-	}
-
-	// 일본어 카테고리 취득
-	// return : []
-	public function GetJapaneseCategories() {
-		return Cache::remember('GetJapaneseCategories', \App\Consts\Cache::CACHE_TIME, function () {
-			$entity = (new \App\Entities\Category)->BuildMultiByCategoryId(\App\Consts\Category::BASE_CATEGORIES['JAPANESE']);
-			if (is_null($entity)) {
-				return [];
-			}
-			return $entity->ToArray();
-		});
-	}
-
 	// 카테고리ID 리스트를 재귀적으로 취득
 	public function GetCategoryIdsByCategoryId($categoryId) {
 		$entity = (new \App\Entities\Category)->BuildMultiByCategoryId($categoryId);
@@ -58,6 +34,24 @@ class Category
 	public function GetJapanesenCategoryIds() {
 		return Cache::remember('GetJapanesenCategoryIds', \App\Consts\Cache::CACHE_TIME, function () {
 			return $this->GetCategoryIdsByCategoryId(\App\Consts\Category::BASE_CATEGORIES['JAPANESE']);
+		});
+	}
+
+	// ID별 한국어 카테고리 이름 취득
+	// return : [id => name]
+	public function GetKoreanCategoryNameArray() {
+		return Cache::remember('GetKoreanCategoryNameArray', \App\Consts\Cache::CACHE_TIME, function () {
+			$entity = (new \App\Entities\Category)->BuildMultiByCategoryId(\App\Consts\Category::BASE_CATEGORIES['KOREAN']);
+			return $entity->GetNameByIdRecursive();
+		});
+	}
+
+	// ID별 일본어 카테고리 이름 취득
+	// return : [id => name]
+	public function GetJapaneseCategoryNameArray() {
+		return Cache::remember('GetJapaneseCategoryNameArray', \App\Consts\Cache::CACHE_TIME, function () {
+			$entity = (new \App\Entities\Category)->BuildMultiByCategoryId(\App\Consts\Category::BASE_CATEGORIES['JAPANESE']);
+			return $entity->GetNameByIdRecursive();
 		});
 	}
 }

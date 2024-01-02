@@ -72,25 +72,43 @@ class Category {
 
 	// 자신 + 하위 카테고리ID 리스트
 	public function GetCategoryIdsRecursive() {
-		$categoryIds = [];
-		array_push($categoryIds, $this->category->id);
-		array_merge($categoryIds, $this->GetChildCategoryIdsRecursive());
-		return $categoryIds;
+		$categoryList = $this->GetCategoryModelsRecursive();
+		return array_map(function ($category) {
+			return $category->id;
+		}, $categoryList);
+	}
+
+	public function GetNameByIdRecursive() {
+		$categoryList = $this->GetCategoryModelsRecursive();
+		$idByName = [];
+		foreach ($categoryList as $category) {
+			$idByName[$category->id] = $category->name;
+		}
+		return $idByName;
+	}
+
+	// 자신 + 하위 ID별 카테고리 리스트
+	// return [ id => Model ]
+	public function GetCategoryModelsRecursive() {
+		$categoryList = [];
+		array_push($categoryList, $this->category);
+		array_merge($categoryList, $this->GetChildCategoryModelsRecursive());
+		return $categoryList;
 	}
 
 	// 하위 카테고리ID 리스트
-	public function GetChildCategoryIdsRecursive() {
+	public function GetChildCategoryModelsRecursive() {
 		if (count($this->childCategoryEntities) <= 0) {
 			return [];
 		}
 
-		$categoryIds = [];
+		$categoryList = [];
 		foreach($this->childCategoryEntities as $child) {
-			array_push($categoryIds, $child->id);
-			array_merge($categoryIds, $this->GetChildCategoryIdsRecursive());
+			array_push($categoryList, $this->category);
+			array_merge($categoryIds, $this->GetChildCategoryModelsRecursive());
 		}
 
-		return $categoryIds;
+		return $categoryList;
 	}
 
 	public function ToArray() {
