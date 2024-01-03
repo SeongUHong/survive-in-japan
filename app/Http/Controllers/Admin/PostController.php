@@ -36,6 +36,21 @@ class PostController extends Controller
 	}
 
 	public function EditExec(Request $request) {
-		return redirect(url("/admin_post_edit/{$request->id}"));
+		$id = $request->id;
+		if(is_null($id)) {
+			return redirect(url("/admin_index"));
+		}
+		// 포스트 검색
+		$post = \App\Models\Post::find($id);
+		// 없는 포스트ID일 경우 TOP으로
+		if(is_null($post)) {
+			return redirect(url("/admin_index"));
+		}
+
+		$post->title = $request->title;
+		$post->content = $request->content;
+		$post->save();
+
+		return redirect(url("/admin_post_edit/{$id}"));
 	}
 }

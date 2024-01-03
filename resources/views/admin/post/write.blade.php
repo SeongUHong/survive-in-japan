@@ -7,12 +7,12 @@
    @csrf 
     <h3>タイトル</h3>
     <div class="form-floating">
-      <textarea class="form-control" style="resize: none;">{{ $post['title'] }}</textarea>
+      <textarea name="title" class="form-control" style="resize: none;">{{ $post['title'] }}</textarea>
     </div>
     <br>
     <h3>内容</h3>
     <div class="form-floating">
-      <textarea class="form-control" style="resize: none; height: 600px">{{ $post['content'] }}</textarea>
+      <textarea name="content" class="form-control" style="resize: none; height: 600px">{{ $post['content'] }}</textarea>
     </div>
     <input type="hidden" name="id" value="{{ $post['id'] }}">
     <br>
