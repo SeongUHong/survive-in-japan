@@ -4,7 +4,9 @@
   </div>
   <div class="main-middle-content-text col-9">
     <div class="main-middle-content-text-title fs-5 fw-bold">
-      {{ $post['title'] }}
+      <a href="{{ url('post_view').'/'.$post['id'] }}">
+        {{ $post['title'] }}
+      </a>
     </div>
     <div class="main-middle-content-text-detail fs-6">
       {{ $post['content'] }}

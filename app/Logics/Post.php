@@ -2,6 +2,7 @@
 namespace App\Logics;
 
 use Illuminate\Support\Facades\Cache;
+use App\Logics\Util;
 
 class Post {
 	public function GetPostsByPage($page) {
@@ -11,7 +12,21 @@ class Post {
 		];
 	}
 
-	public function GetPost($postId) {
+	// 포스트 한 건 취득
+	public function GetPost($postId, $options = []) {
+		// 캐시 옵션
+		$withCache;
+		if (Util::CanGetArrayValue($options, 'withCache')) {
+			$withCache = 1;
+		}
+		
+		if (isset($withCache)) {
+			return Cache::remember("GetPost:$postId", \App\Consts\Cache::CACHE_TIME, function () use($postId) {
+				$post = (new \App\Entities\Post())->BuildById($postId);
+				return $post->ToArray();
+			});
+		}
+		
 		$post = (new \App\Entities\Post())->BuildById($postId);
 		return $post->ToArray();
 	}

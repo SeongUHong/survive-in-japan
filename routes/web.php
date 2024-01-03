@@ -28,3 +28,8 @@ Route::get('/admin_post_japanese_list', 'App\Http\Controllers\Admin\PostControll
 Route::get('/admin_post_edit/{id}', 'App\Http\Controllers\Admin\PostController@Edit')->middleware('login');
 # 포스트 편집 실행
 Route::post('/admin_post_edit_exec', 'App\Http\Controllers\Admin\PostController@EditExec')->middleware('login');
+
+#===================
+# 포스트
+#===================
+Route::get('/post_view/{id}', 'App\Http\Controllers\PostController@View');
