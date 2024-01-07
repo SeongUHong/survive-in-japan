@@ -15,7 +15,7 @@ class Post {
 	// 포스트 한 건 취득
 	public function GetPost($postId, $options = []) {
 		// 캐시 옵션
-		$withCache;
+		$withCache = null;
 		if (Util::CanGetArrayValue($options, 'withCache')) {
 			$withCache = 1;
 		}

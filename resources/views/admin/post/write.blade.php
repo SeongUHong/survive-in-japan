@@ -1,7 +1,6 @@
 @extends('admin/layout')
 @section('content')
 記事作成<br>
-<a href="{{ url('admin_index') }}">管理者TOP</a><br>
 <div style="padding:1rem">
   <form action="{{ url('admin_post_edit_exec') }}" method="post" >
    @csrf 

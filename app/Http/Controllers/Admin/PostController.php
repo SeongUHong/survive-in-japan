@@ -53,4 +53,12 @@ class PostController extends Controller
 
 		return redirect(url("/admin_post_edit/{$id}"));
 	}
+
+	public function DeleteConfirm($id) {
+		$post = (new \App\Logics\Post())->GetPost($id);
+
+		return view('admin/post/delete_confirm', [
+			'post' => $post,
+		]);
+	}
 }

@@ -28,6 +28,18 @@ Route::get('/admin_post_japanese_list', 'App\Http\Controllers\Admin\PostControll
 Route::get('/admin_post_edit/{id}', 'App\Http\Controllers\Admin\PostController@Edit')->middleware('login');
 # 포스트 편집 실행
 Route::post('/admin_post_edit_exec', 'App\Http\Controllers\Admin\PostController@EditExec')->middleware('login');
+# 한국어 카테고리 리스트
+Route::get('/admin_category_korean_list', 'App\Http\Controllers\Admin\CategoryController@KoreanList')->middleware('login');
+# 일본어 카테고리 리스트
+Route::get('/admin_category_japanese_list', 'App\Http\Controllers\Admin\CategoryController@JapaneseList')->middleware('login');
+# 한국어 카테고리 추가
+Route::post('/admin_category_korean_add', 'App\Http\Controllers\Admin\CategoryController@AddKorean')->middleware('login');
+# 일본어 카테고리 추가
+Route::post('/admin_category_japanese_add', 'App\Http\Controllers\Admin\CategoryController@AddJapanese')->middleware('login');
+# 카테고리 삭제 확인
+Route::get('/admin_category_delete_confirm/{id}', 'App\Http\Controllers\Admin\CategoryController@DeleteConfirm')->middleware('login');
+# 카테고리 삭제
+Route::post('/admin_category_delete_exec', 'App\Http\Controllers\Admin\CategoryController@DeleteExec')->middleware('login');
 
 #===================
 # 포스트
