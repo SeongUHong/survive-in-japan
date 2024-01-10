@@ -115,22 +115,56 @@ class Category
 		return $this->GetCategoryIdsByCategoryId(\App\Consts\Category::BASE_CATEGORIES['JAPANESE']);
 	}
 
+	// ID별 카테고리 이름 취득
+	public function GetCategoryNameArray($options = []) {
+		$Categories = $this->GetKoreanCategoryNameArray($options);
+		$jpCategories = $this->GetJapaneseCategoryNameArray($options);
+		
+		foreach (array_keys($jpCategories) as $key) {
+			$Categories[$key] = $jpCategories[$key];
+		}
+
+		return $Categories;
+	}
+
 	// ID별 한국어 카테고리 이름 취득
 	// return : [id => name]
-	public function GetKoreanCategoryNameArray() {
-		return Cache::remember('GetKoreanCategoryNameArray', \App\Consts\Cache::CACHE_TIME, function () {
-			$entity = (new \App\Entities\Category)->BuildByCategoryId(\App\Consts\Category::BASE_CATEGORIES['KOREAN']);
-			return $entity->GetNameByIdRecursive();
-		});
+	public function GetKoreanCategoryNameArray($options = []) {
+		// 캐시 옵션
+		$withCache = null;
+		if (Util::CanGetArrayValue($options, 'withCache')) {
+			$withCache = 1;
+		}
+
+		if(isset($withCache)) {
+			return Cache::remember('GetKoreanCategoryNameArray', \App\Consts\Cache::CACHE_TIME, function () {
+				$entity = (new \App\Entities\Category)->BuildByCategoryId(\App\Consts\Category::BASE_CATEGORIES['KOREAN'], ['withCache' => 1]);
+				return $entity->GetNameByIdRecursive();
+			});
+		}
+
+		$entity = (new \App\Entities\Category)->BuildByCategoryId(\App\Consts\Category::BASE_CATEGORIES['KOREAN']);
+		return $entity->GetNameByIdRecursive();
 	}
 
 	// ID별 일본어 카테고리 이름 취득
 	// return : [id => name]
-	public function GetJapaneseCategoryNameArray() {
-		return Cache::remember('GetJapaneseCategoryNameArray', \App\Consts\Cache::CACHE_TIME, function () {
-			$entity = (new \App\Entities\Category)->BuildByCategoryId(\App\Consts\Category::BASE_CATEGORIES['JAPANESE']);
-			return $entity->GetNameByIdRecursive();
-		});
+	public function GetJapaneseCategoryNameArray($options = []) {
+		// 캐시 옵션
+		$withCache = null;
+		if (Util::CanGetArrayValue($options, 'withCache')) {
+			$withCache = 1;
+		}
+
+		if(isset($withCache)) {
+			return Cache::remember('GetJapaneseCategoryNameArray', \App\Consts\Cache::CACHE_TIME, function () {
+				$entity = (new \App\Entities\Category)->BuildByCategoryId(\App\Consts\Category::BASE_CATEGORIES['JAPANESE'], ['withCache' => 1]);
+				return $entity->GetNameByIdRecursive();
+			});
+		}
+
+		$entity = (new \App\Entities\Category)->BuildByCategoryId(\App\Consts\Category::BASE_CATEGORIES['JAPANESE']);
+		return $entity->GetNameByIdRecursive();
 	}
 
 	// 한국어 카테고리인가
