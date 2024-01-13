@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Logics\Util;
 
 class AdminController extends Controller
 {
@@ -42,5 +43,21 @@ class AdminController extends Controller
 	{
 		session()->forget('user_id');
 		return redirect(url('/'));
+	}
+
+	// 디버그
+	public function Sandbox(Request $request) {
+		$validate = $request->validate([
+			'msg' => 'nullable',
+		]);
+
+		$msg = '';
+		if (Util::CanGetArrayValue($validate, 'msg')) {
+			$msg = $validate['msg'];
+		}
+
+		return view('admin/sandbox', [
+			'msg' => $msg,
+		]);
 	}
 }

@@ -36,6 +36,7 @@
       </div>
     </div>
     <br>
+    <!-- 포스트 -->
     <h3>タイトル</h3>
     <div class="form-floating">
       <textarea name="title" class="form-control" style="resize: none;">@if(isset($post)){{ $post['title'] }}@endif</textarea>
@@ -50,6 +51,15 @@
       <input type="hidden" name="id" value="{{ $post['id'] }}">
     @endif
     <input type="submit" value="保存" class="btn btn-primary">
+  </form>
+  <!-- 이미지 업로드 -->
+  <h3>画像追加</h3>
+  <form action="{{ url('admin_post_image_upload') }}" method="post" enctype="multipart/form-data">
+    @csrf
+    <div class="input-group">
+      <input type="file" class="form-control" name="image">
+      <input type="submit" class="btn btn-outline-secondary" value="追加">
+    </div>
   </form>
 </div>
 @endsection

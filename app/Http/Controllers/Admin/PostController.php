@@ -77,11 +77,11 @@ class PostController extends Controller
 	public function DeleteConfirm($id) {
 		$post = (new \App\Logics\Post())->GetPost($id);
 		$categoryNameById = (new \App\Logics\Category())->GetCategoryNameArray();
-		$category_name = isset($categoryNameById[$post['category_id']]) ? $categoryNameById[$post['category_id']] : null;
-		
+		$categoryName = isset($categoryNameById[$post['category_id']]) ? $categoryNameById[$post['category_id']] : null;
+
 		return view('admin/post/delete_confirm', [
-			'post'          => $post,
-			'category_name' => $category_name,
+			'post'         => $post,
+			'categoryName' => $categoryName,
 		]);
 	}
 
@@ -138,5 +138,22 @@ class PostController extends Controller
 		$post->save();
 
 		return redirect(url("admin_post_edit/{$post->id}"));
+	}
+
+	// 이미지를 업로드
+	// 업로드 후엔 본문에 태그를 추가함
+	const UPLOAD_IMAGE_PATH = "public/images";
+	public function ImageUpload(Request $request) {
+		$request -> validate([
+			'image' => 'image|required|mimes:jpeg,png,jpg,gif',
+		]);
+
+		$image = $request->image;
+		$imageName = date("ymdhms") . '_' . $image->getClientOriginalName();
+		$path = $image->storeAs(self::UPLOAD_IMAGE_PATH, $imageName);
+
+		return view('admin/sandbox', [
+			'msg' => $path,
+		]);
 	}
 }

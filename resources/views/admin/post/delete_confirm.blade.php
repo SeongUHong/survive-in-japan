@@ -6,8 +6,8 @@
   <div style="padding:1rem; border:1px solid black">
     <h3>カテゴリー</h3>
      <div>
-        @if (isset($category_name))
-          {{ $category_name }}
+        @if (isset($categoryName))
+          {{ $categoryName }}
         @else
           <span style="color:red">不明</span>
         @endif

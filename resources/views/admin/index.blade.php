@@ -8,4 +8,8 @@
   <a href="{{ url('admin_post_korean_list') }}">韓国語記事</a><br>
   <a href="{{ url('admin_category_japanese_list') }}">日本語カテゴリー</a><br>
   <a href="{{ url('admin_category_korean_list') }}">韓国語カテゴリー</a><br>
+  <br>
+  <br>
+  <br>
+  <a href="{{ url('admin_sandbox') }}">sandbox</a><br>
 @endsection

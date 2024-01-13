@@ -16,6 +16,8 @@ Route::get('/admin_login', 'App\Http\Controllers\AdminController@Login');
 Route::post('/admin_login_exec', 'App\Http\Controllers\AdminController@LoginExec');
 # 로그아웃
 Route::get('/admin_logout', 'App\Http\Controllers\AdminController@Logout')->middleware('login');
+# DEBUG 샌드박스
+Route::get('/admin_sandbox', 'App\Http\Controllers\AdminController@Sandbox')->middleware('login');
 
 #===================
 # 관리자 포스트 작성
@@ -36,6 +38,8 @@ Route::post('/admin_post_delete_exec', 'App\Http\Controllers\Admin\PostControlle
 Route::get('/admin_post_create', 'App\Http\Controllers\Admin\PostController@Create')->middleware('login');
 # 포스트 작성 실행
 Route::post('/admin_post_create_exec', 'App\Http\Controllers\Admin\PostController@CreateExec')->middleware('login');
+# 포스트에 이미지 추가
+Route::post('/admin_post_image_upload', 'App\Http\Controllers\Admin\PostController@ImageUpload')->middleware('login');
 # 한국어 카테고리 리스트
 Route::get('/admin_category_korean_list', 'App\Http\Controllers\Admin\CategoryController@KoreanList')->middleware('login');
 # 일본어 카테고리 리스트
