@@ -6,6 +6,7 @@
   <a href="{{ url('admin_post_create') }}">記事作成</a><br>
   <a href="{{ url('admin_post_japanese_list') }}">日本語記事</a><br>
   <a href="{{ url('admin_post_korean_list') }}">韓国語記事</a><br>
+  <a href="{{ url('admin_post_draft_list') }}">作成中の記事</a><br>
   <a href="{{ url('admin_category_japanese_list') }}">日本語カテゴリー</a><br>
   <a href="{{ url('admin_category_korean_list') }}">韓国語カテゴリー</a><br>
   <br>

@@ -27,6 +27,15 @@ class PostController extends Controller
 		]);
 	}
 
+	public function DraftList() {
+		$postList = (new \App\Logics\Post())->GetDraftPostsByPage(1);
+		return view('admin/post/list', [
+			'postList' => $postList,
+			'categoryNameById' => [],
+			'statusNameById' => array_flip(\App\Consts\Post::STATUS),
+		]);
+	}
+
 	// 편집
 	public function Edit($id) {
 		$post = (new \App\Logics\Post())->GetPost($id);

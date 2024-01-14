@@ -84,4 +84,18 @@ class Post {
 			return $post->ToArray();
 		}, $posts);
 	}
+
+	public function GetDraftPostsByPage($page) {
+		$categoryIds = (new \App\Logics\Category())->GetAllCategoryIds();
+		// 카테고리 미정의 포스트도 포함
+		array_push($categoryIds, \App\Consts\Category::UNDEF);
+		$posts = (new \App\Entities\Post())->BuildMultiByPageAndCategoryIds(
+			$page, $categoryIds, ['status' => [
+				\App\Consts\Post::STATUS['DRAFT'],
+			]]
+		);
+		return array_map(function($post) {
+			return $post->ToArray();
+		}, $posts);
+	}
 }

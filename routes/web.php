@@ -26,6 +26,8 @@ Route::get('/admin_sandbox', 'App\Http\Controllers\AdminController@Sandbox')->mi
 Route::get('/admin_post_korean_list', 'App\Http\Controllers\Admin\PostController@KoreanList')->middleware('login');
 # 일본어 포스트 리스트
 Route::get('/admin_post_japanese_list', 'App\Http\Controllers\Admin\PostController@JapaneseList')->middleware('login');
+# 작성중인 포스트 리스트
+Route::get('/admin_post_draft_list', 'App\Http\Controllers\Admin\PostController@DraftList')->middleware('login');
 # 포스트 편집
 Route::get('/admin_post_edit/{id}', 'App\Http\Controllers\Admin\PostController@Edit')->middleware('login');
 # 포스트 편집 실행

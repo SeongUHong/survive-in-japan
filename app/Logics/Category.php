@@ -81,6 +81,16 @@ class Category
 		return $entity->GetCategoryIdsRecursive();
 	}
 
+	// 모든 카테고리ID 취득
+	public function GetAllCategoryIds($options = []) {
+		$categoryIds = $this->GetKoreanCategoryIds($options);
+		$jpCategoryIds = $this->GetJapanesenCategoryIds($options);
+		foreach ($jpCategoryIds as $jpCategoryId) {
+			array_push($categoryIds, $jpCategoryId);
+		}
+		return $categoryIds;
+	}
+
 	// 한국어 카테고리ID 리스트 취득
 	public function GetKoreanCategoryIds($options = []) {
 		// 캐시 옵션
