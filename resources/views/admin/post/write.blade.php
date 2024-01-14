@@ -52,11 +52,21 @@
     @endif
     <input type="submit" value="保存" class="btn btn-primary">
   </form>
+  <!-- 이미지 리스트 -->
+  <h3>画像リスト</h3>
+  <div class="container"> 
+    <div class="row">
+      @foreach($imagePathList as $imagePath)
+        @include('admin/post/_sub/image_card', ['path' => $imagePath])
+      @endforeach
+    </div>
+  </div>
   <!-- 이미지 업로드 -->
   <h3>画像追加</h3>
   <form action="{{ url('admin_post_image_upload') }}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="input-group">
+      <input type="hidden" name="id" value="{{ $post['id'] }}">
       <input type="file" class="form-control" name="image">
       <input type="submit" class="btn btn-outline-secondary" value="追加">
     </div>

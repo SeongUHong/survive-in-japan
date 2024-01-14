@@ -1,7 +1,7 @@
 <?php
 namespace App\Consts;
 
-class Images
+class Image
 {
 	// 업로드 되는 디렉토리 (storage/app/public)
 	const UPLOAD_BASE_DIRECTORY = 'public';

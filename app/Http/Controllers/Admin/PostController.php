@@ -56,6 +56,7 @@ class PostController extends Controller
 			'jpCategoryList' => $jpCategoryList,
 			'isKorean'       => $isKorean,
 			'isJapanese'     => $isJapanese,
+			'imagePathList'  => (new \App\Logics\Image())->GetImagePathListByPostId($id),
 		]);
 	}
 
@@ -105,14 +106,23 @@ class PostController extends Controller
 			return redirect('admin_index');
 		}
 
+		// 관련 이미지 삭제
+		$invalidimageList = (new \App\Logics\Image())->DeleteByPostId($id);
+		// 삭제에 실패 했을 경우
+		if (count($invalidimageList) > 0) {
+			return redirect(url("/admin_category_delete_confirm/{$id}"));
+		}
+
 		// 카테고리 확인용
 		$categoryId = $post->category_id;
 		// 삭제
 		$post->delete();
 		
-		if ((new \App\Logics\Category())->IsKoreanCategory($categoryId)) {
+		if ($categoryId == 0) {
+			return redirect('admin_post_draft_list');
+		} elseif ((new \App\Logics\Category())->IsKoreanCategory($categoryId)) {
 			return redirect('admin_post_korean_list');
-		} else {
+		}  else {
 			return redirect('admin_post_japanese_list');
 		}
 	}
@@ -126,13 +136,7 @@ class PostController extends Controller
 		$post = new \App\Models\Post();
 		$post->save();
 
-		return view('admin/post/write', [
-			'krCategoryList' => $krCategoryList,
-			'jpCategoryList' => $jpCategoryList,
-			'isKorean'       => false,
-			'isJapanese'     => true,
-			'post'           => $post,
-		]);
+		return redirect(url("/admin_post_edit/{$post->id}"));
 	}
 
 	// 새 포스트 작성 실행
@@ -156,17 +160,29 @@ class PostController extends Controller
 	// 이미지를 업로드
 	public function ImageUpload(Request $request) {
 		$request -> validate([
+			'id'    => 'required|integer',
 			'image' => 'image|required|mimes:jpeg,png,jpg,gif',
 		]);
 
+		$postId = $request->id;
+		$post = \App\Models\Post::find($postId);
+		// 없는 포스트ID일 경우 TOP으로
+		if(is_null($post)) {
+			return redirect(url("/admin_index"));
+		}
+
+		// 이미지 저장
 		$image = $request->image;
 		$imageName = date("ymdhms") . '_' . $image->getClientOriginalName();
-		$image->storeAs(\App\Consts\Images::UPLOAD_POST_IMAGE_PATH . '/', $imageName);
+		$image->storeAs(\App\Consts\Image::UPLOAD_POST_IMAGE_PATH . '/', $imageName);
 
+		// 포스트와 연결
+		$postImage = new \App\Models\PostImage();
+		$postImage->post_id = $postId;
+		$postImage->name = $imageName;
+		$postImage->path = \App\Consts\Image::POST_IMAGE_PATH;
+		$postImage->save();
 
-
-		return view('admin/sandbox', [
-			'msg' => \App\Consts\Images::READ_POST_IMAGE_PATH . '/' . $imageName,
-		]);
+		return redirect(url("/admin_post_edit/{$postId}"));
 	}
 }
