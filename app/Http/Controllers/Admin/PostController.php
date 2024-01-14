@@ -114,11 +114,15 @@ class PostController extends Controller
 		$krCategoryList = $categoryLogic->GetKoreanCategories();
 		$jpCategoryList = $categoryLogic->GetJapaneseCategories();
 
+		$post = new \App\Models\Post();
+		$post->save();
+
 		return view('admin/post/write', [
 			'krCategoryList' => $krCategoryList,
 			'jpCategoryList' => $jpCategoryList,
 			'isKorean'       => false,
 			'isJapanese'     => true,
+			'post'           => $post,
 		]);
 	}
 
@@ -141,8 +145,6 @@ class PostController extends Controller
 	}
 
 	// 이미지를 업로드
-	// 업로드 후엔 본문에 태그를 추가함
-	const UPLOAD_IMAGE_PATH = "public/images";
 	public function ImageUpload(Request $request) {
 		$request -> validate([
 			'image' => 'image|required|mimes:jpeg,png,jpg,gif',
@@ -150,10 +152,12 @@ class PostController extends Controller
 
 		$image = $request->image;
 		$imageName = date("ymdhms") . '_' . $image->getClientOriginalName();
-		$path = $image->storeAs(self::UPLOAD_IMAGE_PATH, $imageName);
+		$image->storeAs(\App\Consts\Images::UPLOAD_POST_IMAGE_PATH . '/', $imageName);
+
+
 
 		return view('admin/sandbox', [
-			'msg' => $path,
+			'msg' => \App\Consts\Images::READ_POST_IMAGE_PATH . '/' . $imageName,
 		]);
 	}
 }

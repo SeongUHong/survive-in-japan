@@ -51,7 +51,7 @@ class AdminController extends Controller
 			'msg' => 'nullable',
 		]);
 
-		$msg = '';
+		$msg = null;
 		if (Util::CanGetArrayValue($validate, 'msg')) {
 			$msg = $validate['msg'];
 		}

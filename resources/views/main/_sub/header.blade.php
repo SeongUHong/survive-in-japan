@@ -2,12 +2,12 @@
 <div class="main-top container">
   <div class="main-top-title">
     <a href="/">
-      <img src="{{ asset('/storage/i/main/title.png') }}" class="img-fluid" alt="survive in japan">
+      <img src="{{ asset('/i/main/title.png') }}" class="img-fluid" alt="survive in japan">
     </a>
   </div>
   <div class="main-top-bg">
     <a href="/">
-      <img src="{{ asset('/storage/i/main/top_bg.png') }}" class="img-fluid" alt="survive in japan">
+      <img src="{{ asset('/i/main/top_bg.png') }}" class="img-fluid" alt="survive in japan">
     </a>
   </div>
   <div class="main-top-category">

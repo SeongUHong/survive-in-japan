@@ -88,6 +88,7 @@ class Post {
 			'updated_at'   => $this->post->updated_at,
 			'status'       => $this->post->status,
 			'category_id'  => $this->post->category_id,
+			'thumb_path'   => $this->post->thumb_path,
 		];
 
 		$metas = [];

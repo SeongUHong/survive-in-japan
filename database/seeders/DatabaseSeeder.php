@@ -17,8 +17,5 @@ class DatabaseSeeder extends Seeder
 		// 마스터 데이터
 		$this->call(UsersTableSeeder::class);
 		$this->call(CategoriesSeeder::class);
-		
-		// 더미 데이터
-		$this->call(Dummy\PostsTableSeeder::class);
 	}
 }

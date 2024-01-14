@@ -10,4 +10,7 @@ class Category
 		'KOREAN'   => 1,
 		'JAPANESE' => 2,
 	];
+
+	// 카테고리 미설정
+	const UNDEF = 0;
 }
