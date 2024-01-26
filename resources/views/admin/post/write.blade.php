@@ -2,7 +2,7 @@
 @section('content')
 記事作成<br>
 <div style="padding:1rem">
-  <form action="@if(isset($post)){{ url('admin_post_edit_exec') }}@else{{ url('admin_post_create_exec') }}@endif" method="post">
+  <form method="post">
     @csrf
 
     <!-- 카테고리 탭 -->
@@ -39,18 +39,17 @@
     <!-- 포스트 -->
     <h3>タイトル</h3>
     <div class="form-floating">
-      <textarea name="title" class="form-control" style="resize: none;">@if(isset($post)){{ $post['title'] }}@endif</textarea>
+      <textarea name="title" class="form-control" style="resize: none;">{{ $post['title'] }}</textarea>
     </div>
     <br>
     <h3>内容</h3>
     <div class="form-floating">
-      <textarea name="content" class="form-control" style="resize: none; height: 600px">@if(isset($post)){{ $post['content'] }}@endif</textarea>
+      <textarea name="content" class="form-control" style="resize: none; height: 600px">{{ $post['content'] }}</textarea>
     </div>
     <br>
-    @if(isset($post))
-      <input type="hidden" name="id" value="{{ $post['id'] }}">
-    @endif
-    <input type="submit" value="保存" class="btn btn-primary">
+    <input type="hidden" name="id" value="{{ $post['id'] }}">
+    <button type="submit" formaction="{{ url('admin_post_edit_exec') }}" class="btn btn-primary">公開</button>
+    <button type="submit" formaction="{{ url('admin_post_store_exec') }}" class="btn btn-secondary">保管</button>
   </form>
   <!-- 이미지 리스트 -->
   <h3>画像リスト</h3>

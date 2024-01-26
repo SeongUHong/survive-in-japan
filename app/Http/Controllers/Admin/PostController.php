@@ -29,9 +29,10 @@ class PostController extends Controller
 
 	public function DraftList() {
 		$postList = (new \App\Logics\Post())->GetDraftPostsByPage(1);
+		$categoryNameById = (new \App\Logics\Category())->GetCategoryNameArray();
 		return view('admin/post/list', [
 			'postList' => $postList,
-			'categoryNameById' => [],
+			'categoryNameById' => $categoryNameById,
 			'statusNameById' => array_flip(\App\Consts\Post::STATUS),
 		]);
 	}
@@ -63,9 +64,7 @@ class PostController extends Controller
 	public function EditExec(Request $request) {
 		$request->validate([
 			'id'          => 'required|integer',
-			'category_id' => 'required|integer',
-			'title'       => 'required',
-			'content'     => 'required',
+			'category_id' => 'nullable|integer',
 		]);
 		$id = $request->id;
 
@@ -76,9 +75,34 @@ class PostController extends Controller
 			return redirect(url("/admin_index"));
 		}
 
-		$post->title = $request->title;
-		$post->content = $request->content;
-		$post->category_id = $request->category_id;
+		$post->title = $request->title ? $request->title : '';
+		$post->content = $request->content ? $request->content : '';
+		$post->category_id = $request->category_id ? $request->category_id : \App\Consts\Category::UNDEF;
+		$post->status = \App\Consts\Post::STATUS['PUBLIC'];
+		$post->save();
+
+		return redirect(url("/admin_post_edit/{$id}"));
+	}
+
+	// 포스트를 임시보관
+	public function StoreExec(Request $request) {
+		$request->validate([
+			'id'          => 'required|integer',
+			'category_id' => 'nullable|integer',
+		]);
+		$id = $request->id;
+
+		// 포스트 검색
+		$post = \App\Models\Post::find($id);
+		// 없는 포스트ID일 경우 TOP으로
+		if(is_null($post)) {
+			return redirect(url("/admin_index"));
+		}
+
+		$post->title = $request->title ? $request->title : '';
+		$post->content = $request->content ? $request->content : '';
+		$post->category_id = $request->category_id ? $request->category_id : \App\Consts\Category::UNDEF;
+		$post->status = \App\Consts\Post::STATUS['DRAFT'];
 		$post->save();
 
 		return redirect(url("/admin_post_edit/{$id}"));

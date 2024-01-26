@@ -30,8 +30,10 @@ Route::get('/admin_post_japanese_list', 'App\Http\Controllers\Admin\PostControll
 Route::get('/admin_post_draft_list', 'App\Http\Controllers\Admin\PostController@DraftList')->middleware('login');
 # 포스트 편집
 Route::get('/admin_post_edit/{id}', 'App\Http\Controllers\Admin\PostController@Edit')->middleware('login');
-# 포스트 편집 실행
+# 포스트 편집 실행(공개)
 Route::post('/admin_post_edit_exec', 'App\Http\Controllers\Admin\PostController@EditExec')->middleware('login');
+# 포스트 편집 실행(보관)
+Route::post('/admin_post_store_exec', 'App\Http\Controllers\Admin\PostController@StoreExec')->middleware('login');
 # 포스트 삭제 확인
 Route::get('/admin_post_delete_confirm/{id}', 'App\Http\Controllers\Admin\PostController@DeleteConfirm')->middleware('login');
 # 포스트 삭제 실행
