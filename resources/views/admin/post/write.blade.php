@@ -1,7 +1,7 @@
 @extends('admin/layout')
 @section('content')
 記事作成<br>
-<div style="padding:1rem">
+<div style="padding:1rem" id="app">
   <form method="post">
     @csrf
 
@@ -54,7 +54,7 @@
   <!-- 이미지 리스트 -->
   <h3>画像リスト</h3>
   <div class="container"> 
-    <div class="row">
+    <div class="row" id="img-box">
       @foreach($imagePathList as $imagePath)
         @include('admin/post/_sub/image_card', ['path' => $imagePath])
       @endforeach
@@ -71,4 +71,5 @@
     </div>
   </form>
 </div>
+<script src="{{asset('js/pages/admin_write.js')}}"></script>
 @endsection
