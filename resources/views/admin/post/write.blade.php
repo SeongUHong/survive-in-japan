@@ -71,5 +71,5 @@
     </div>
   </form>
 </div>
-<script src="{{asset('js/pages/admin_write.js')}}"></script>
+<script src="{{ asset('js/pages/admin_write.js') }}"></script>
 @endsection
