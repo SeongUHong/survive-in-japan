@@ -44,6 +44,8 @@ Route::get('/admin_post_create', 'App\Http\Controllers\Admin\PostController@Crea
 Route::post('/admin_post_create_exec', 'App\Http\Controllers\Admin\PostController@CreateExec')->middleware('login');
 # 포스트에 이미지 추가
 Route::post('/admin_post_image_upload', 'App\Http\Controllers\Admin\PostController@ImageUpload')->middleware('login');
+# 포스트 자동 저장
+Route::post('/admin_post_auto_edit_exec', 'App\Http\Controllers\Admin\PostController@AutoEditExec')->middleware('login');
 # 한국어 카테고리 리스트
 Route::get('/admin_category_korean_list', 'App\Http\Controllers\Admin\CategoryController@KoreanList')->middleware('login');
 # 일본어 카테고리 리스트

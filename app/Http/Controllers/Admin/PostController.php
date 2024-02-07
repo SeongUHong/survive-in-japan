@@ -192,7 +192,7 @@ class PostController extends Controller
 		$post = \App\Models\Post::find($postId);
 		// 없는 포스트ID일 경우 TOP으로
 		if(is_null($post)) {
-			return redirect(url("/admin_index"));
+			return response()->json(['error' => 'Not exist post'], 400);
 		}
 
 		// 이미지 저장
@@ -208,5 +208,28 @@ class PostController extends Controller
 		$postImage->save();
 
 		return response()->json(['path' => "/" . \App\Consts\Image::READ_POST_IMAGE_PATH . "/" . $imageName]);
+	}
+
+	public function AutoEditExec(Request $request) {
+		$request->validate([
+			'id'          => 'required|integer',
+			'title'       => 'nullable',
+			'content'     => 'nullable',
+		]);
+		$id = $request->id;
+
+		// 포스트 검색
+		$post = \App\Models\Post::find($id);
+		// 없는 포스트ID일 경우 TOP으로
+		if(is_null($post)) {
+			return response()->json(['error' => 'Not exist post'], 400);
+		}
+
+		$post->title = $request->title ? $request->title : '';
+		$post->content = $request->content ? $request->content : '';
+		$post->category_id = $request->category_id ? $request->category_id : \App\Consts\Category::UNDEF;
+		$post->save();
+
+		return response()->json(['msg' => 'Auto save successed']);
 	}
 }

@@ -60,7 +60,7 @@ class Image {
 
 	// 프론트 표시용 패스를 작성
 	private function _MakePath($path, $name) {
-		return \App\Consts\Image::READ_BASE_DIRECTORY . $path . '/' . $name;
+		return '/' . \App\Consts\Image::READ_BASE_DIRECTORY . $path . '/' . $name;
 	}
 
 	// 실제로 저장된 패스를 작성

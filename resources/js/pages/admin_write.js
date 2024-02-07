@@ -1,16 +1,32 @@
 $(document).ready(function() {
+    // 프리뷰 영역 숨기기
+    $("#content-preview-box").hide();
+
+    // Preview 클릭시 작성 프리뷰 영역을 표시하고 작성중인 글을 렌더링함
+    $("#content-preview-btn").on("click", function() {
+        $("#content-preview-box").html($("#content").val());
+        $("#content").hide();
+        $("#content-preview-box").show();
+    });
+
+    // Edit 클릭시 텍스트 에리어를 표시함
+    $("#content-edit-btn").on("click", function() {
+        $("#content-preview-box").hide();
+        $("#content").show();
+    });
+
     // 이미지 추가 버튼 클릭시 컨텐츠에 이미지 태그 추가
-    $("#add_img_tab_btn").on("click", function() {
-        var imagePath = $("#target_image").data("image-path");
-        var imageTag = "<img src='{{ asset(" + imagePath + ") }}' alt=''>";
+    $("#add-img-tab-btn").on("click", function() {
+        var imagePath = $("#target-image").data("image-path");
+        var imageTag = "<img src='" + imagePath + "' alt=''>";
         $("#content").val($("#content").val() + imageTag);
     });
 
     // 이미지 저장 리퀘스트
-    $("#upload_img_btn").on("click", function() {
+    $("#upload-img-btn").on("click", function() {
         // 이미지 파일 가져오기
-        var imageFile = $("#image_input")[0].files[0];
-        var postId = $("#post_id").val();
+        var imageFile = $("#image-input")[0].files[0];
+        var postId = $("#post-id").val();
 
         // FormData 객체 생성 및 이미지 추가
         var formData = new FormData();
@@ -35,17 +51,49 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN': csrfToken
             },
             success: function(response) {
-                $("#img_box").append(makeImgHtml(response.path));
+                $("#img-box").append(makeImgHtml(response.path));
             },
             error: function(error) {
                 console.error('Error saving image:', error);
             }
         });
     });
+
+    // 컨텐츠 에리어에서 포커스를 잃었을때 포스트를 저장함
+    $("#content").blur(function() {
+        var content = $(this).val();
+        var title = $("#title").val();
+        var postId = $("#post-id").val();
+        
+        var formData = new FormData();
+        formData.append('id', postId);
+        formData.append('title', title);
+        formData.append('content', content);
+
+        // CSRF 토큰 가져오기
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        // Ajax 요청 보내기
+        $.ajax({
+            url: '/admin_post_auto_edit_exec',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            success: function(response) {
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
+    });
 });
 
 // 동적으로 생성된 요소에 클릭 이벤트 바인딩
-$("#img_box").on("click", ".img-thumbnail", function() {
+$("#img-box").on("click", ".img-thumbnail", function() {
     // 다른 img-thumbnail 요소들의 클래스, ID를 삭제
     $(".img-thumbnail").not(this).removeClass("border border-primary border-3").removeAttr("id");
     // 현재 클릭한 img-thumbnail 요소에 클래스, ID를 추가 또는 제거
@@ -53,7 +101,7 @@ $("#img_box").on("click", ".img-thumbnail", function() {
     
     // ID가 없는 경우에만 ID 설정
     if (!$(this).attr("id")) {
-        $(this).attr("id", "target_image");
+        $(this).attr("id", "target-image");
     }
 });
 
