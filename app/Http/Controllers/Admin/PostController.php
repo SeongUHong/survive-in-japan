@@ -207,6 +207,6 @@ class PostController extends Controller
 		$postImage->path = \App\Consts\Image::POST_IMAGE_PATH;
 		$postImage->save();
 
-		return redirect(url("/admin_post_edit/{$postId}"));
+		return response()->json(['path' => "/" . \App\Consts\Image::READ_POST_IMAGE_PATH . "/" . $imageName]);
 	}
 }

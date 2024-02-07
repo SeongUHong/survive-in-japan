@@ -42,33 +42,43 @@
       <textarea name="title" class="form-control" style="resize: none;">{{ $post['title'] }}</textarea>
     </div>
     <br>
+
+    <!-- 이미지 업로드 -->
+    <h3>画像追加</h3>
+    <!-- <form action="{{ url('admin_post_image_upload') }}" method="post" enctype="multipart/form-data">
+      @csrf
+      <div class="input-group">
+        <input type="hidden" name="id" value="{{ $post['id'] }}">
+        <input type="file" class="form-control" name="image">
+        <input type="submit" class="btn btn-outline-secondary" value="追加">
+      </div>
+    </form> -->
+    <div class="input-group">
+      <input type="hidden" id="upload_img_url" value="{{ url('admin_post_image_upload') }}">
+      <input type="file" class="form-control" name="image" id="image_input">
+      <button id="upload_img_btn" class="btn btn-outline-secondary" type="button">追加</button>
+    </div>
+
+    <!-- 이미지 리스트 -->
+    <h3>画像リスト</h3>
+    <button id="add_img_tab_btn" class="btn btn-primary" type="button">画像タグ追加</button>
+    <div class="container"> 
+      <div class="row" id="img_box">
+        @foreach($imagePathList as $imagePath)
+          @include('admin/post/_sub/image_card', ['path' => $imagePath])
+        @endforeach
+      </div>
+    </div>
+    
+    <br>
     <h3>内容</h3>
     <div class="form-floating">
-      <textarea name="content" class="form-control" style="resize: none; height: 600px">{{ $post['content'] }}</textarea>
+      <textarea name="content" id="content" class="form-control" style="resize: none; height: 600px">{{ $post['content'] }}</textarea>
     </div>
     <br>
-    <input type="hidden" name="id" value="{{ $post['id'] }}">
+    <input type="hidden" name="id" id="post_id" value="{{ $post['id'] }}">
     <button type="submit" formaction="{{ url('admin_post_edit_exec') }}" class="btn btn-primary">公開</button>
     <button type="submit" formaction="{{ url('admin_post_store_exec') }}" class="btn btn-secondary">保管</button>
-  </form>
-  <!-- 이미지 리스트 -->
-  <h3>画像リスト</h3>
-  <div class="container"> 
-    <div class="row" id="img-box">
-      @foreach($imagePathList as $imagePath)
-        @include('admin/post/_sub/image_card', ['path' => $imagePath])
-      @endforeach
-    </div>
-  </div>
-  <!-- 이미지 업로드 -->
-  <h3>画像追加</h3>
-  <form action="{{ url('admin_post_image_upload') }}" method="post" enctype="multipart/form-data">
-    @csrf
-    <div class="input-group">
-      <input type="hidden" name="id" value="{{ $post['id'] }}">
-      <input type="file" class="form-control" name="image">
-      <input type="submit" class="btn btn-outline-secondary" value="追加">
-    </div>
   </form>
 </div>
 <script src="{{ asset('js/pages/admin_write.js') }}"></script>
