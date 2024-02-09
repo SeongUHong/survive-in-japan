@@ -90,6 +90,103 @@ $(document).ready(function() {
             }
         });
     });
+
+    // 공개 실행
+    $("#edit-exec-btn").on("click", function() {
+        var jpCategoryId = $("#jp-category-id").val();
+        var krCategoryId = $("#kr-category-id").val();
+
+        if (jpCategoryId == '' && krCategoryId == '') {
+            alert("カテゴリーを選択してないじゃん！！");
+            return false;
+        }
+
+        var title = $("#title").val();
+        if (title == '') {
+            alert("タイトルを入力してないじゃん！！");
+            return false;
+        }
+
+        var content = $("#content").val();
+        if (content == '') {
+            alert("内容を入力してないじゃん！！");
+            return false;
+        }
+
+        var categoryId = jpCategoryId ? jpCategoryId : krCategoryId;
+        var postId = $("#post-id").val();
+        
+        var formData = new FormData();
+        formData.append('id', postId);
+        formData.append('title', title);
+        formData.append('category_id', categoryId);
+        formData.append('content', content);
+
+        // CSRF 토큰 가져오기
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        // Ajax 요청 보내기
+        $.ajax({
+            url: '/admin_post_edit_exec',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            success: function(response) {
+                alert("公開したよ！");
+            },
+            error: function(error) {
+                console.error(error);
+                alert("公開失敗…");
+            }
+        });
+    });
+
+    // 보관 실행
+    $("#store-exec-btn").on("click", function() {
+        var categoryId = '';
+        if ($('#japanese').hasClass('active')) {
+            categoryId = $("#jp-category-id").val();
+        }
+        if ($('#korean').hasClass('active')) {
+            categoryId = $("#kr-category-id").val();
+        }
+
+        var title = $("#title").val();
+        var content = $("#content").val();
+        var postId = $("#post-id").val();
+        
+        var formData = new FormData();
+        formData.append('id', postId);
+        formData.append('title', title);
+        formData.append('category_id', categoryId);
+        formData.append('content', content);
+
+        // CSRF 토큰 가져오기
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        // Ajax 요청 보내기
+        $.ajax({
+            url: '/admin_post_store_exec',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            success: function(response) {
+                alert("保管したよ！");
+            },
+            error: function(error) {
+                console.error(error);
+                alert("保管失敗…");
+            }
+        });
+    });
 });
 
 // 동적으로 생성된 요소에 클릭 이벤트 바인딩

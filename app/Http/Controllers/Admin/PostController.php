@@ -64,7 +64,9 @@ class PostController extends Controller
 	public function EditExec(Request $request) {
 		$request->validate([
 			'id'          => 'required|integer',
-			'category_id' => 'nullable|integer',
+			'title'       => 'required',
+			'content'     => 'required',
+			'category_id' => 'required|integer',
 		]);
 		$id = $request->id;
 
@@ -72,16 +74,16 @@ class PostController extends Controller
 		$post = \App\Models\Post::find($id);
 		// 없는 포스트ID일 경우 TOP으로
 		if(is_null($post)) {
-			return redirect(url("/admin_index"));
+			return response()->json(['error' => 'Not exist post'], 400);
 		}
 
-		$post->title = $request->title ? $request->title : '';
-		$post->content = $request->content ? $request->content : '';
-		$post->category_id = $request->category_id ? $request->category_id : \App\Consts\Category::UNDEF;
+		$post->title = $request->title;
+		$post->content = $request->content;
+		$post->category_id = $request->category_id;
 		$post->status = \App\Consts\Post::STATUS['PUBLIC'];
 		$post->save();
 
-		return redirect(url("/admin_post_edit/{$id}"));
+		return response()->json(['msg' => 'Save for public successed']);
 	}
 
 	// 포스트를 임시보관
@@ -96,7 +98,7 @@ class PostController extends Controller
 		$post = \App\Models\Post::find($id);
 		// 없는 포스트ID일 경우 TOP으로
 		if(is_null($post)) {
-			return redirect(url("/admin_index"));
+			return response()->json(['error' => 'Not exist post'], 400);
 		}
 
 		$post->title = $request->title ? $request->title : '';
@@ -105,7 +107,7 @@ class PostController extends Controller
 		$post->status = \App\Consts\Post::STATUS['DRAFT'];
 		$post->save();
 
-		return redirect(url("/admin_post_edit/{$id}"));
+		return response()->json(['msg' => 'Save for draft successed']);
 	}
 
 	public function DeleteConfirm($id) {
