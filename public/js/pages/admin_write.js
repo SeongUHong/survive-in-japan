@@ -135,29 +135,23 @@ $(document).ready(function () {
 
   // 공개 실행
   $("#edit-exec-btn").on("click", function () {
-    var jpCategoryId = $("#jp-category-id").val();
-    var krCategoryId = $("#kr-category-id").val();
-    if (jpCategoryId == '' && krCategoryId == '') {
+    var formMap = getForm();
+    if (formMap.get('category_id') == '') {
       alert("カテゴリーを選択してないじゃん！！");
       return false;
     }
-    var title = $("#title").val();
-    if (title == '') {
+    if (formMap.get('title') == '') {
       alert("タイトルを入力してないじゃん！！");
       return false;
     }
-    var content = $("#content").val();
-    if (content == '') {
+    if (formMap.get('content') == '') {
       alert("内容を入力してないじゃん！！");
       return false;
     }
-    var categoryId = jpCategoryId ? jpCategoryId : krCategoryId;
-    var postId = $("#post-id").val();
     var formData = new FormData();
-    formData.append('id', postId);
-    formData.append('title', title);
-    formData.append('category_id', categoryId);
-    formData.append('content', content);
+    formMap.forEach(function (value, key) {
+      formData.append(key, value);
+    });
 
     // CSRF 토큰 가져오기
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -184,21 +178,11 @@ $(document).ready(function () {
 
   // 보관 실행
   $("#store-exec-btn").on("click", function () {
-    var categoryId = '';
-    if ($('#japanese').hasClass('active')) {
-      categoryId = $("#jp-category-id").val();
-    }
-    if ($('#korean').hasClass('active')) {
-      categoryId = $("#kr-category-id").val();
-    }
-    var title = $("#title").val();
-    var content = $("#content").val();
-    var postId = $("#post-id").val();
+    var formMap = getForm();
     var formData = new FormData();
-    formData.append('id', postId);
-    formData.append('title', title);
-    formData.append('category_id', categoryId);
-    formData.append('content', content);
+    formMap.forEach(function (value, key) {
+      formData.append(key, value);
+    });
 
     // CSRF 토큰 가져오기
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
@@ -236,13 +220,38 @@ $("#img-box").on("click", ".img-thumbnail", function () {
     $(this).attr("id", "target-image");
   }
 });
+function getForm() {
+  var categoryId = '';
+  // 활성화 된 탭에서 카테고리ID를 취득
+  if ($('#japanese').hasClass('active')) {
+    categoryId = $("#jp-category-id").val();
+  }
+  if ($('#korean').hasClass('active')) {
+    categoryId = $("#kr-category-id").val();
+  }
+  // 그래도 카테고리ID가 없다면 기존 카테고리ID 취득
+  if (categoryId == '') {
+    var jpCategoryId = $("#jp-category-id").val();
+    var krCategoryId = $("#kr-category-id").val();
+    categoryId = jpCategoryId == '' ? krCategoryId : krCategoryId;
+  }
+  var title = $("#title").val();
+  var content = $("#content").val();
+  var postId = $("#post-id").val();
+  var map = new Map();
+  map.set('id', postId);
+  map.set('category_id', categoryId);
+  map.set('title', title);
+  map.set('content', content);
+  return map;
+}
 function makeImgHtml(imagePath) {
   var html = "<div class='col-sm-6 col-md-3'>" + "<a><img src='" + imagePath + "' class='img-thumbnail' data-image-path='" + imagePath + "' alt=''></a>" + "</div>";
   return html;
 }
 ;
 function makeThumbHtml(imagePath) {
-  var html = "<img src='" + imagePath + "' class='img-thumbnail' alt=''>";
+  var html = "<img src='" + imagePath + " alt=''>";
   return html;
 }
 ;
