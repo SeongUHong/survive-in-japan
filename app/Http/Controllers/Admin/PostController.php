@@ -58,6 +58,7 @@ class PostController extends Controller
 			'isKorean'       => $isKorean,
 			'isJapanese'     => $isJapanese,
 			'imagePathList'  => (new \App\Logics\Image())->GetImagePathListByPostId($id),
+			'thumb_full_path' => (new \App\Logics\Thumb())->GetThumbPath($post['thumb_path'], $post['id']),
 		]);
 	}
 
@@ -72,7 +73,7 @@ class PostController extends Controller
 
 		// 포스트 검색
 		$post = \App\Models\Post::find($id);
-		// 없는 포스트ID일 경우 TOP으로
+		// 없는 포스트ID일 경우 에러 메세지
 		if(is_null($post)) {
 			return response()->json(['error' => 'Not exist post'], 400);
 		}
@@ -98,7 +99,7 @@ class PostController extends Controller
 
 		// 포스트 검색
 		$post = \App\Models\Post::find($id);
-		// 없는 포스트ID일 경우 TOP으로
+		// 없는 포스트ID일 경우 에러 메세지
 		if(is_null($post)) {
 			return response()->json(['error' => 'Not exist post'], 400);
 		}
@@ -194,7 +195,7 @@ class PostController extends Controller
 
 		$postId = $request->id;
 		$post = \App\Models\Post::find($postId);
-		// 없는 포스트ID일 경우 TOP으로
+		// 없는 포스트ID일 경우 에러 메세지
 		if(is_null($post)) {
 			return response()->json(['error' => 'Not exist post'], 400);
 		}
@@ -214,6 +215,39 @@ class PostController extends Controller
 		return response()->json(['path' => "/" . \App\Consts\Image::READ_POST_IMAGE_PATH . "/" . $imageName]);
 	}
 
+	// 썸네일 업로드
+	public function ThumbUpload(Request $request) {
+		$request -> validate([
+			'id'    => 'required|integer',
+			'image' => 'image|required|mimes:jpeg,png,jpg,gif',
+		]);
+
+		$postId = $request->id;
+		$post = \App\Models\Post::find($postId);
+		// 없는 포스트ID일 경우 에러 메세지
+		if (is_null($post)) {
+			return response()->json(['error' => 'Not exist post'], 400);
+		}
+
+		// 이미 썸네일이 설정된 경우 삭제
+		if (isset($post->thumb_path)) {
+			// 파일 삭제에 실패한 경우 메세지
+			if (!((new \App\Logics\Thumb())->DeleteByPath($post->thumb_path))) {
+				return response()->json(['error' => 'Not exist image file'], 400);
+			}
+		}
+		// 이미지 저장
+		$image = $request->image;
+		$imageName = $postId . date("ymdhms") . '_' . $image->extension();
+		$image->storeAs(\App\Consts\Image::UPLOAD_POST_THUMB_IMAGE_PATH . '/', $imageName);
+
+		// 포스트 정보 갱신
+		$post->thumb_path = \App\Consts\Image::POST_THUMB_IMAGE_PATH . '/' . $imageName;
+		$post->save();
+
+		return response()->json(['path' => "/" . \App\Consts\Image::READ_POST_THUMB_IMAGE_PATH . "/" . $imageName]);
+	}
+
 	public function AutoEditExec(Request $request) {
 		$request->validate([
 			'id'          => 'required|integer',
@@ -224,7 +258,7 @@ class PostController extends Controller
 
 		// 포스트 검색
 		$post = \App\Models\Post::find($id);
-		// 없는 포스트ID일 경우 TOP으로
+		// 없는 포스트ID일 경우 에러 메세지
 		if(is_null($post)) {
 			return response()->json(['error' => 'Not exist post'], 400);
 		}

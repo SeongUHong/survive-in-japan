@@ -67,6 +67,42 @@ $(document).ready(function () {
     });
   });
 
+  // 썸네일 저장 리퀘스트
+  $("#upload-thumb-btn").on("click", function () {
+    // 이미지 파일 가져오기
+    var imageFile = $("#thumb-input")[0].files[0];
+    var postId = $("#post-id").val();
+
+    // FormData 객체 생성 및 이미지 추가
+    var formData = new FormData();
+    formData.append('id', postId);
+    formData.append('image', imageFile);
+
+    // CSRF 토큰 가져오기
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+    if (imageFile == null) {
+      alert("追加する画像を選択して！");
+    }
+
+    // Ajax 요청 보내기
+    $.ajax({
+      url: '/admin_post_thumb_upload',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      headers: {
+        'X-CSRF-TOKEN': csrfToken
+      },
+      success: function success(response) {
+        $("#thumb-box").html(makeThumbHtml(response.path));
+      },
+      error: function error(_error2) {
+        console.error('Error saving thumb:', _error2);
+      }
+    });
+  });
+
   // 컨텐츠 에리어에서 포커스를 잃었을때 포스트를 저장함
   $("#content").blur(function () {
     var content = $(this).val();
@@ -91,8 +127,8 @@ $(document).ready(function () {
         'X-CSRF-TOKEN': csrfToken
       },
       success: function success(response) {},
-      error: function error(_error2) {
-        console.error(_error2);
+      error: function error(_error3) {
+        console.error(_error3);
       }
     });
   });
@@ -139,8 +175,8 @@ $(document).ready(function () {
       success: function success(response) {
         alert("公開したよ！");
       },
-      error: function error(_error3) {
-        console.error(_error3);
+      error: function error(_error4) {
+        console.error(_error4);
         alert("公開失敗…");
       }
     });
@@ -180,8 +216,8 @@ $(document).ready(function () {
       success: function success(response) {
         alert("保管したよ！");
       },
-      error: function error(_error4) {
-        console.error(_error4);
+      error: function error(_error5) {
+        console.error(_error5);
         alert("保管失敗…");
       }
     });
@@ -202,6 +238,11 @@ $("#img-box").on("click", ".img-thumbnail", function () {
 });
 function makeImgHtml(imagePath) {
   var html = "<div class='col-sm-6 col-md-3'>" + "<a><img src='" + imagePath + "' class='img-thumbnail' data-image-path='" + imagePath + "' alt=''></a>" + "</div>";
+  return html;
+}
+;
+function makeThumbHtml(imagePath) {
+  var html = "<img src='" + imagePath + "' class='img-thumbnail' alt=''>";
   return html;
 }
 ;

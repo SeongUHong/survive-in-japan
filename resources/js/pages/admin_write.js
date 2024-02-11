@@ -59,6 +59,43 @@ $(document).ready(function() {
         });
     });
 
+    // 썸네일 저장 리퀘스트
+    $("#upload-thumb-btn").on("click", function() {
+        // 이미지 파일 가져오기
+        var imageFile = $("#thumb-input")[0].files[0];
+        var postId = $("#post-id").val();
+
+        // FormData 객체 생성 및 이미지 추가
+        var formData = new FormData();
+        formData.append('id', postId);
+        formData.append('image', imageFile);
+
+        // CSRF 토큰 가져오기
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        if (imageFile == null) {
+            alert("追加する画像を選択して！");
+        }
+
+        // Ajax 요청 보내기
+        $.ajax({
+            url: '/admin_post_thumb_upload',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            success: function(response) {
+                $("#thumb-box").html(makeThumbHtml(response.path));
+            },
+            error: function(error) {
+                console.error('Error saving thumb:', error);
+            }
+        });
+    });
+
     // 컨텐츠 에리어에서 포커스를 잃었을때 포스트를 저장함
     $("#content").blur(function() {
         var content = $(this).val();
@@ -207,5 +244,11 @@ function makeImgHtml(imagePath) {
         "<div class='col-sm-6 col-md-3'>" +
             "<a><img src='" + imagePath + "' class='img-thumbnail' data-image-path='" + imagePath + "' alt=''></a>" +
         "</div>";
+    return html;
+};
+
+function makeThumbHtml(imagePath) {
+    var html =
+            "<img src='" + imagePath + " alt=''>";
     return html;
 };

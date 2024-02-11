@@ -42,6 +42,8 @@ Route::post('/admin_post_delete_exec', 'App\Http\Controllers\Admin\PostControlle
 Route::get('/admin_post_create', 'App\Http\Controllers\Admin\PostController@Create')->middleware('login');
 # 포스트 작성 실행
 Route::post('/admin_post_create_exec', 'App\Http\Controllers\Admin\PostController@CreateExec')->middleware('login');
+# 포스트에 썸네일 추가
+Route::post('/admin_post_thumb_upload', 'App\Http\Controllers\Admin\PostController@ThumbUpload')->middleware('login');
 # 포스트에 이미지 추가
 Route::post('/admin_post_image_upload', 'App\Http\Controllers\Admin\PostController@ImageUpload')->middleware('login');
 # 포스트 자동 저장
