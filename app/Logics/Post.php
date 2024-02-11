@@ -5,10 +5,10 @@ use Illuminate\Support\Facades\Cache;
 use App\Logics\Util;
 
 class Post {
-	public function GetPostsByPage($page) {
+	public function GetPostsByPage($page, $options = []) {
 		return [
-			'korean'   => $this->GetPublicKoreanPostsByPage($page),
-			'japanese' => $this->GetPublicJapanesePostsByPage($page),
+			'korean'   => $this->GetPublicKoreanPostsByPage($page, $options),
+			'japanese' => $this->GetPublicJapanesePostsByPage($page, $options),
 		];
 	}
 
@@ -31,32 +31,60 @@ class Post {
 		return $post->ToArray();
 	}
 
-	public function GetPublicKoreanPostsByPage($page) {
-		return Cache::remember("GetPublicKoreanPostsByPage:$page", \App\Consts\Cache::CACHE_TIME, function () use($page) {
+	public function GetPublicKoreanPostsByPage($page, $options = []) {
+		// 캐시 옵션
+		$withCache = null;
+		if (Util::CanGetArrayValue($options, 'withCache')) {
+			$withCache = 1;
+		}
+
+		$origin = function () use ($page) {
 			$categoryIds = (new \App\Logics\Category())->GetKoreanCategoryIds();
 			$posts = (new \App\Entities\Post())->BuildMultiByPageAndCategoryIds(
-				$page, $categoryIds, ['status' => [
+				$page,
+				$categoryIds,
+				['status' => [
 					\App\Consts\Post::STATUS['PUBLIC']
 				]]
 			);
 			return array_map(function($post) {
 				return $post->ToArray();
 			}, $posts);
-		});
+		};
+
+		if (isset($withCache)) {
+			return Cache::remember("GetPublicKoreanPostsByPage:$page", \App\Consts\Cache::CACHE_TIME, $origin);
+		}
+
+		return call_user_func_array($origin, []);
 	}
 
-	public function GetPublicJapanesePostsByPage($page) {
-		return Cache::remember("GetPublicJapanesePostsByPage:$page", \App\Consts\Cache::CACHE_TIME, function () use($page) {
+	public function GetPublicJapanesePostsByPage($page, $options = []) {
+		// 캐시 옵션
+		$withCache = null;
+		if (Util::CanGetArrayValue($options, 'withCache')) {
+			$withCache = 1;
+		}
+
+		$origin = function () use ($page) {
 			$categoryIds = (new \App\Logics\Category())->GetJapanesenCategoryIds();
 			$posts = (new \App\Entities\Post())->BuildMultiByPageAndCategoryIds(
-				$page, $categoryIds, ['status' => [
+				$page,
+				$categoryIds,
+				['status' => [
 					\App\Consts\Post::STATUS['PUBLIC']
 				]]
 			);
 			return array_map(function($post) {
 				return $post->ToArray();
 			}, $posts);
-		});
+		};
+
+		if (isset($withCache)) {
+			return Cache::remember("GetPublicJapanesePostsByPage:$page", \App\Consts\Cache::CACHE_TIME, $origin);
+		}
+
+		return call_user_func_array($origin, []);
 	}
 
 	public function GetKoreanPostsWithoutRemovedByPage($page) {
