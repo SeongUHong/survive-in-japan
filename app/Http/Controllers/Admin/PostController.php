@@ -90,6 +90,8 @@ class PostController extends Controller
 	public function StoreExec(Request $request) {
 		$request->validate([
 			'id'          => 'required|integer',
+			'title'       => 'nullable|integer',
+			'content'     => 'nullable|integer',
 			'category_id' => 'nullable|integer',
 		]);
 		$id = $request->id;
@@ -229,7 +231,6 @@ class PostController extends Controller
 
 		$post->title = $request->title ? $request->title : '';
 		$post->content = $request->content ? $request->content : '';
-		$post->category_id = $request->category_id ? $request->category_id : \App\Consts\Category::UNDEF;
 		$post->save();
 
 		return response()->json(['msg' => 'Auto save successed']);
