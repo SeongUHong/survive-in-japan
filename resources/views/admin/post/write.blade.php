@@ -33,6 +33,7 @@
     </div>
   </div>
   <br>
+
   <!-- 포스트 -->
   <h3>タイトル</h3>
   <div class="form-floating">
@@ -40,12 +41,22 @@
   </div>
   <br>
 
+  <!-- 썸네일 -->
+  <h3>サムネイル</h3>
+  <div class="input-group">
+    <input type="file" class="form-control" id="thumb-input">
+    <button id="upload-thumb-btn" class="btn btn-outline-secondary" type="button">追加</button>
+  </div>
+  <div id="thumb-box"></div>
+  <br>
+
   <!-- 이미지 업로드 -->
   <h3>画像追加</h3>
   <div class="input-group">
-    <input type="file" class="form-control" name="image" id="image-input">
+    <input type="file" class="form-control" id="image-input">
     <button id="upload-img-btn" class="btn btn-outline-secondary" type="button">追加</button>
   </div>
+  <br>
 
   <!-- 이미지 리스트 -->
   <h3>画像リスト</h3>
