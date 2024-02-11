@@ -214,11 +214,6 @@ class PostController extends Controller
 		return response()->json(['path' => "/" . \App\Consts\Image::READ_POST_IMAGE_PATH . "/" . $imageName]);
 	}
 
-	// 썸네일 업로드
-	public function ThumbUpload(Request $request) {
-
-	}
-
 	public function AutoEditExec(Request $request) {
 		$request->validate([
 			'id'          => 'required|integer',
