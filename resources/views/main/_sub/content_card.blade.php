@@ -1,6 +1,6 @@
 <div class="main-middle-content row">
   <div class="main-middle-content-thumb col-3">
-    <img src="./test.png">
+    <img src="{{ '/' . \App\Consts\Image::READ_BASE_DIRECTORY . $post['thumb_path']}}">
   </div>
   <div class="main-middle-content-text col-9">
     <div class="main-middle-content-text-title fs-5 fw-bold">

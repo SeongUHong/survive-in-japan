@@ -47,9 +47,9 @@
     <input type="file" class="form-control" id="thumb-input">
     <button id="upload-thumb-btn" class="btn btn-outline-secondary" type="button">追加</button>
   </div>
-  <div id="thumb-box">
+  <div id="thumb-box" style="width:10rem">
     @if($post['thumb_path'])
-      <img src="{{ asset( $thumb_full_path ) }}" alt="">
+      <img src="{{ asset( $thumb_full_path ) }}" style="width:100%" alt="">
     @endif
   </div>
   <br>
