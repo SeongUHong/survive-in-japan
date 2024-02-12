@@ -101,5 +101,16 @@ class Post {
 
 		return $resultArr;
 	}
+
+	public function ToArrayForMain() {
+		$resultArr = [
+			'id'           => $this->post->id,
+			'title'        => $this->post->title,
+			'updated_at'   => $this->post->updated_at,
+			'thumb_path'   => $this->post->thumb_path,
+		];
+
+		return $resultArr;
+	}
 	
 }

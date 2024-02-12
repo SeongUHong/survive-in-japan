@@ -38,7 +38,7 @@ class Post {
 			$withCache = 1;
 		}
 
-		$origin = function () use ($page) {
+		$origin = function () use ($page, $options) {
 			$categoryIds = (new \App\Logics\Category())->GetKoreanCategoryIds();
 			$posts = (new \App\Entities\Post())->BuildMultiByPageAndCategoryIds(
 				$page,
@@ -47,6 +47,13 @@ class Post {
 					\App\Consts\Post::STATUS['PUBLIC']
 				]]
 			);
+			// 메인화면용
+			if (Util::CanGetArrayValue($options, 'forMain')) {
+				return array_map(function($post) {
+					return $post->ToArrayForMain();
+				}, $posts);
+			}
+
 			return array_map(function($post) {
 				return $post->ToArray();
 			}, $posts);
@@ -66,7 +73,7 @@ class Post {
 			$withCache = 1;
 		}
 
-		$origin = function () use ($page) {
+		$origin = function () use ($page, $options) {
 			$categoryIds = (new \App\Logics\Category())->GetJapanesenCategoryIds();
 			$posts = (new \App\Entities\Post())->BuildMultiByPageAndCategoryIds(
 				$page,
@@ -75,6 +82,13 @@ class Post {
 					\App\Consts\Post::STATUS['PUBLIC']
 				]]
 			);
+			// 메인화면용
+			if (Util::CanGetArrayValue($options, 'forMain')) {
+				return array_map(function($post) {
+					return $post->ToArrayForMain();
+				}, $posts);
+			}
+
 			return array_map(function($post) {
 				return $post->ToArray();
 			}, $posts);
