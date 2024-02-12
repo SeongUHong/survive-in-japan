@@ -24,9 +24,16 @@
             @include('main/_sub/content_card', ['post' => $post])
           @endforeach
         </div>
+        <!-- 모든 컨텐츠 -->
+        <div class="main-middle-contents-box-all col-12">
+          @foreach($allPostList as $post)
+            @include('main/_sub/content_card', ['post' => $post])
+          @endforeach
+        </div>
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/pages/app.js') }}"></script>
   </body>
 </html>

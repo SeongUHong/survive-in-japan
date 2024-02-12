@@ -1,7 +1,9 @@
 const mix = require('laravel-mix');
 
 // JS
-mix.js('resources/js/pages/admin_write.js', 'public/js/pages')
+mix.js('resources/js/pages/admin/write.js', 'public/js/pages/admin')
+   .version();
+mix.js('resources/js/pages/*.js', 'public/js/pages/app.js')
    .version();
 
 // SCSS

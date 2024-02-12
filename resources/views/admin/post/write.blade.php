@@ -91,5 +91,5 @@
   <button type="button" id="edit-exec-btn" class="btn btn-primary">公開</button>
   <button type="button" id="store-exec-btn" class="btn btn-secondary">保管</button>
 </div>
-<script src="{{ asset('js/pages/admin_write.js') }}"></script>
+<script src="{{ asset('js/pages/admin/write.js') }}"></script>
 @endsection

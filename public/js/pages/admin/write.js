@@ -1,9 +1,9 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./resources/js/pages/admin_write.js":
+/***/ "./resources/js/pages/admin/write.js":
 /*!*******************************************!*\
-  !*** ./resources/js/pages/admin_write.js ***!
+  !*** ./resources/js/pages/admin/write.js ***!
   \*******************************************/
 /***/ (() => {
 
@@ -370,7 +370,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"/js/pages/admin_write": 0,
+/******/ 			"/js/pages/admin/write": 0,
 /******/ 			"css/pages/post": 0,
 /******/ 			"css/pages/main": 0
 /******/ 		};
@@ -422,7 +422,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/pages/post","css/pages/main"], () => (__webpack_require__("./resources/js/pages/admin_write.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/pages/post","css/pages/main"], () => (__webpack_require__("./resources/js/pages/admin/write.js")))
 /******/ 	__webpack_require__.O(undefined, ["css/pages/post","css/pages/main"], () => (__webpack_require__("./resources/sass/pages/main.scss")))
 /******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/pages/post","css/pages/main"], () => (__webpack_require__("./resources/sass/pages/post.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
