@@ -37,18 +37,20 @@
   height: 7rem;
   background-color: #FFFFFF;
   box-shadow: 1px 4px 5px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
 }
 .main-middle-content-thumb img {
   width: 100%;
+  height: 80%;
   -o-object-fit: cover;
      object-fit: cover;
 }
-.main-middle-content-text-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.main-middle-content-text {
+  display: flex;
+  align-items: center;
 }
-.main-middle-content-text-detail {
+.main-middle-content-text-title {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
