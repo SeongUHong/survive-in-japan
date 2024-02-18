@@ -6,12 +6,7 @@
       <img src="{{ asset('/i/main/title.png') }}" class="img-fluid" alt="survive in japan">
     </div>
     <div class="col-2">
-      <a class="small-menu">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span>MENU</span>
-      </a>
+      @include('main/_sub/small_category_menu', ['categoryList' => $categoryList])
     </div>
   </div>
   <div class="main-top-bg">
