@@ -13,21 +13,21 @@
     <div class="main-middle container">
       <div class="main-middle-contents-box row">
         <!-- 일본어 컨텐츠 -->
-        <div class="main-middle-contents-box-japanese col-12 col-md-6">
+        <div class="main-middle-contents-box-japanese col-md-6">
           @foreach($japanesePostList as $post)
             @include('main/_sub/content_card', ['post' => $post])
           @endforeach
         </div>
         <!-- 한국어 컨텐츠 -->
-        <div class="main-middle-contents-box-korean col-12 col-md-6">
+        <div class="main-middle-contents-box-korean col-md-6">
           @foreach($koreanPostList as $post)
             @include('main/_sub/content_card', ['post' => $post])
           @endforeach
         </div>
         <!-- 모든 컨텐츠 -->
-        <div class="main-middle-contents-box-all col-12">
+        <div class="main-middle-contents-box-all col-12" id="content-card-box">
           @foreach($allPostList as $post)
-            @include('main/_sub/content_card', ['post' => $post])
+            @include('main/_sub/small_content_card', ['post' => $post])
           @endforeach
         </div>
       </div>

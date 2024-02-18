@@ -1,14 +1,21 @@
 <!-- 상단 -->
 <div class="main-top container">
-  <div class="main-top-title">
-    <a href="/">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="main-top-title col-8">
       <img src="{{ asset('/i/main/title.png') }}" class="img-fluid" alt="survive in japan">
-    </a>
+    </div>
+    <div class="col-2">
+      <a class="small-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span>MENU</span>
+      </a>
+    </div>
   </div>
   <div class="main-top-bg">
-    <a href="/">
-      <img src="{{ asset('/i/main/top_bg.png') }}" class="img-fluid" alt="survive in japan">
-    </a>
+    <img src="{{ asset('/i/main/top_bg.png') }}" class="img-fluid" alt="survive in japan">
   </div>
   <div class="main-top-category">
     @foreach($categoryList as $category)
@@ -21,12 +28,6 @@
         @endforeach
       </div>
     @endforeach
+    
   </div>
-
-  <a class="small-menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </a>
-
 </div>
