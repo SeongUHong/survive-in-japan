@@ -25,7 +25,7 @@
           @endforeach
         </div>
         <!-- 모든 컨텐츠 -->
-        <div class="main-middle-contents-box-all col-12" id="content-card-box">
+        <div class="main-middle-contents-box-all col-12" id="small-content-card-box">
           @foreach($allPostList as $post)
             @include('main/_sub/small_content_card', ['post' => $post])
           @endforeach
