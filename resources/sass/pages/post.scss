@@ -2,3 +2,68 @@
 	background-color: #F5F5F5;
 }
 
+.post-view-title {
+	margin-top: 2rem;
+	.main-title img {
+		width: 50%;
+    	display: block;
+        margin: 0 auto;
+	}
+	img {
+		width: 100%;
+		display: block;
+		margin: 3rem auto 0 auto;
+	}
+	h1 {
+		margin-top: 2rem;
+		font-size: 1.9rem;
+		font-weight: bold;
+	}
+
+	// 스마트폰용
+	@media (max-width: 768px) {
+		h1 {
+			font-size: 1.6rem;
+		}
+		.main-title img {
+			width: 80%;
+		}
+	}
+}
+
+.post-view-content {
+	h1 {
+		font-size: 1.7rem;
+		text-decoration: underline;
+	}
+	img {
+		width: 80%;
+		display: block;
+        margin: 0 auto;
+	}
+
+	img.right {
+		width: 80%;
+		display: block;
+        margin-left: auto;
+	}
+
+	img.left {
+		width: 80%;
+		display: block;
+		margin-right: auto;
+	}
+
+	// 스마트폰용
+	@media (max-width: 768px) {
+		h1 {
+			font-size: 1.5rem;
+		}
+
+		img {
+			width: 100%;
+			display: block;
+			margin: 0 auto;
+		}
+	}
+}

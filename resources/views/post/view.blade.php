@@ -8,12 +8,23 @@
   </head>
   <body class="base-bg-color">
     <div class="container">
+    <div class="row">
+      <div class="col-md-2 col-1"></div>
+      <div class="post-view-title col-md-8 col-10">
+        <div class="main-title">
+          <img src="{{ asset('/i/main/title.png') }}" alt="survive in japan">
+        </div>
+        <img src="{{ '/' . \App\Consts\Image::READ_BASE_DIRECTORY . $post['thumb_path']}}">
+        <h1>{{ $post['title'] }}</h1>
+      </div>
+      <div class="col-md-2 col-1"></div>
+    </div>
       <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
+        <div class="col-md-2 col-1"></div>
+        <div class="post-view-content col-md-8 col-10">
           {!! $post['content'] !!}
         </div>
-        <div class="col-2"></div>
+        <div class="col-md-2 col-1"></div>
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
