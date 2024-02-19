@@ -2,7 +2,7 @@
 <div class="main-top container">
   <div class="row">
     <div class="col-2"></div>
-    <div class="main-top-title col-8">
+    <div class="main-top-title col-8" id="main-top-title">
       <img src="{{ asset('/i/main/title.png') }}" class="img-fluid" alt="survive in japan">
     </div>
     <div class="col-2">

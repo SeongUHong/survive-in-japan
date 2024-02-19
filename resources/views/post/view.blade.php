@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col-md-2 col-1"></div>
       <div class="post-view-title col-md-8 col-10">
-        <div class="main-title">
+        <div class="main-title" id="main-top-title">
           <img src="{{ asset('/i/main/title.png') }}" alt="survive in japan">
         </div>
         <img src="{{ '/' . \App\Consts\Image::READ_BASE_DIRECTORY . $post['thumb_path']}}">
@@ -29,5 +29,6 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/pages/app.js') }}"></script>
   </body>
 </html>

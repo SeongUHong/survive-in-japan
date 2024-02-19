@@ -5,7 +5,7 @@ $(document).ready(function() {
 });
 
 function ClickTopLogo() {
-    $('.main-top-title').on('click', function() {
+    $('#main-top-title').on('click', function() {
         window.location.href = "/";
     });
 }
