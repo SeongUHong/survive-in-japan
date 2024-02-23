@@ -34,7 +34,6 @@
 .post-view-content {
 	h1 {
 		font-size: 1.7rem;
-		text-decoration: underline;
 	}
 	img {
 		width: 80%;
@@ -42,22 +41,23 @@
         margin: 0 auto;
 	}
 
-	img.right {
-		width: 80%;
-		display: block;
-        margin-left: auto;
+	.right {
+		text-align: right;
 	}
-
-	img.left {
-		width: 80%;
-		display: block;
-		margin-right: auto;
+	.left {
+		text-align: left;
+	}
+	.center {
+		text-align: center;
+	}
+	.underline {
+		text-decoration: underline;
 	}
 
 	// 스마트폰용
 	@media (max-width: 768px) {
 		h1 {
-			font-size: 1.5rem;
+			font-size: 1.4rem;
 		}
 
 		img {
