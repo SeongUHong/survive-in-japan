@@ -91,8 +91,8 @@ class PostController extends Controller
 	public function StoreExec(Request $request) {
 		$request->validate([
 			'id'          => 'required|integer',
-			'title'       => 'nullable|integer',
-			'content'     => 'nullable|integer',
+			'title'       => 'nullable',
+			'content'     => 'nullable',
 			'category_id' => 'nullable|integer',
 		]);
 		$id = $request->id;
