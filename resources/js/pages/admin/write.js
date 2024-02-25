@@ -1,10 +1,13 @@
+const { colors } = require("laravel-mix/src/Log");
+
 $(document).ready(function() {
     // 프리뷰 영역 숨기기
-    $("#content-preview-box").hide();
+    updatePreview();
+    $("#content").hide();
 
     // Preview 클릭시 작성 프리뷰 영역을 표시하고 작성중인 글을 렌더링함
     $("#content-preview-btn").on("click", function() {
-        $("#content-preview-box").html($("#content").val());
+        updatePreview();
         $("#content").hide();
         $("#content-preview-box").show();
     });
@@ -16,10 +19,12 @@ $(document).ready(function() {
     });
 
     // 이미지 추가 버튼 클릭시 컨텐츠에 이미지 태그 추가
+    // 프리뷰 영역 갱신
     $("#add-img-tab-btn").on("click", function() {
         var imagePath = $("#target-image").data("image-path");
         var imageTag = "<img src='" + imagePath + "' alt=''>";
         $("#content").val($("#content").val() + imageTag);
+        updatePreview();
     });
 
     // 이미지 저장 리퀘스트
@@ -95,6 +100,11 @@ $(document).ready(function() {
             }
         });
     });
+
+    // 텍스트 태그 입력 버튼 클릭
+    clickAddTagTextBtn();
+    // 개행 버튼 클릭
+    clickAddTagBrBtn();
 
     // 컨텐츠 에리어에서 포커스를 잃었을때 포스트를 저장함
     $("#content").blur(function() {
@@ -263,3 +273,48 @@ function makeThumbHtml(imagePath) {
             "<img src='" + imagePath + " alt=''>";
     return html;
 };
+
+// 텍스트 태그 입력 버튼 클릭
+function clickAddTagTextBtn() {
+    $("#add-tag-txt").on("click", function() {
+        var txt = $("#tag-txt").val();
+        if (txt == '') {
+            alert("テキストを入力しないと！");
+            return;
+        }
+
+        // 태그
+        var tag = $("input[name='tag-opt']:checked").val();
+
+        // 속성
+        // 텍스트 위치
+        var cls = $("input[name='pos-stl']:checked").val();
+        // 밑줄
+        if ($("#underline-stl").prop('checked')) {
+            cls += " underline";
+        }
+
+        // html코드 작성
+        var html = "<" + tag + " class='" + cls + "'>" + txt + "</" + tag + ">\n";
+
+        $("#content").val($("#content").val() + html);
+        $("#tag-txt").val("");
+
+        updatePreview();
+    });
+}
+
+// 개행 버튼 클릭
+function clickAddTagBrBtn() {
+    $("#add-tag-br").on("click", function() {
+        $("#content").val($("#content").val() + "<br>\n");
+        updatePreview();
+    });
+}
+
+// 프리뷰 갱신
+function updatePreview() {
+    $("#post-view-content").html($("#content").val());
+    $("#post-view-content").append("<span style='padding:0.2rem;border-left: 0.2rem solid black;'></span>");
+}
+

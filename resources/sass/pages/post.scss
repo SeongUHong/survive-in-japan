@@ -35,6 +35,12 @@
 	h1 {
 		font-size: 1.7rem;
 	}
+	h2 {
+		font-size: 1.7rem;
+	}
+	h3 {
+		font-size: 1.7rem;
+	}
 	img {
 		width: 80%;
 		display: block;
@@ -57,6 +63,12 @@
 	// 스마트폰용
 	@media (max-width: 768px) {
 		h1 {
+			font-size: 1.4rem;
+		}
+		h2 {
+			font-size: 1.4rem;
+		}
+		h3 {
 			font-size: 1.4rem;
 		}
 

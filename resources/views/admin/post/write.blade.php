@@ -1,7 +1,9 @@
-@extends('admin/layout')
-@section('content')
-記事作成<br>
-<div style="padding:1rem" id="app">
+
+<div class="container" style="padding:1rem" id="app">
+  @extends('admin/layout')
+  @section('content')
+  記事作成<br>
+
   <!-- 카테고리 탭 -->
   <ul class="nav nav-tabs">
     <li class="nav-item">
@@ -54,42 +56,119 @@
   </div>
   <br>
 
-  <!-- 이미지 업로드 -->
-  <h3>画像追加</h3>
-  <div class="input-group">
-    <input type="file" class="form-control" id="image-input">
-    <button id="upload-img-btn" class="btn btn-outline-secondary" type="button">追加</button>
-  </div>
-  <br>
+  <div class="row">
+    <!-- 포스트 작성 도구 -->
+    <div class="col-4">
 
-  <!-- 이미지 리스트 -->
-  <h3>画像リスト</h3>
-  <button id="add-img-tab-btn" class="btn btn-primary" type="button">画像タグ追加</button>
-  <div class="container"> 
-    <div class="row" id="img-box">
-      @foreach($imagePathList as $imagePath)
-        @include('admin/post/_sub/image_card', ['path' => $imagePath])
-      @endforeach
+      <!-- 이미지 업로드 -->
+      <div class="d-grid">
+        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#add-img">画像追加</button>
+      </div>
+      <div class="collapse" id="add-img">
+        <div class="card card-body">
+          <div class="input-group">
+            <input type="file" class="form-control" id="image-input">
+            <button id="upload-img-btn" class="btn btn-outline-secondary" type="button">追加</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 이미지 리스트 -->
+      <div class="d-grid">
+        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#img-list">画像リスト</button>
+      </div>
+      <div class="collapse" id="img-list">
+        <div class="card card-body">
+          <button id="add-img-tab-btn" class="btn btn-primary" type="button">画像タグ追加</button>
+          <div class="container"> 
+            <div class="row" id="img-box">
+              @foreach($imagePathList as $imagePath)
+                @include('admin/post/_sub/image_card', ['path' => $imagePath])
+              @endforeach
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- 포스트 편집 -->
+      <div class="d-grid">
+        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#edit-content">内容編集</button>
+      </div>
+      <div class="collapse" id="edit-content">
+        <div class="card card-body">
+          <div>
+            <p><b>タグ</b></p>
+            <!-- h1 -->
+            <input type="radio" class="btn-check" name="tag-opt" id="h1-opt" value="h1" autocomplete="off" checked>
+            <label class="btn" for="h1-opt">h1</label>
+            <!-- h2 -->
+            <input type="radio" class="btn-check" name="tag-opt" id="h2-opt" value="h2" autocomplete="off">
+            <label class="btn" for="h2-opt">h2</label>
+            <!-- h3 -->
+            <input type="radio" class="btn-check" name="tag-opt" id="h3-opt" value="h3" autocomplete="off">
+            <label class="btn" for="h3-opt">h3</label>
+            <!-- p -->
+            <input type="radio" class="btn-check" name="tag-opt" id="p-opt" value="p" autocomplete="off">
+            <label class="btn" for="p-opt">p</label>
+            <!-- span -->
+            <input type="radio" class="btn-check" name="tag-opt" id="span-opt" value="span" autocomplete="off">
+            <label class="btn" for="span-opt">span</label>
+            <hr>
+
+            <p><b>スタイル</b></p>
+            <!-- 왼쪽 정렬 -->
+            <input type="radio" class="btn-check" name="pos-stl" id="left-stl" value="left" autocomplete="off" checked>
+            <label class="btn" for="left-stl"><i class="bi bi-text-left"></i></label>
+            <!-- 중앙 정렬 -->
+            <input type="radio" class="btn-check" name="pos-stl" id="center-stl" value="center" autocomplete="off">
+            <label class="btn" for="center-stl"><i class="bi bi-text-center"></i></label>
+            <!-- 오른쪽 정렬 -->
+            <input type="radio" class="btn-check" name="pos-stl" id="right-stl" value="right" autocomplete="off">
+            <label class="btn" for="right-stl"><i class="bi bi-text-right"></i></label>
+
+            <span>|</span>
+
+            <!-- 밑줄 -->
+            <input type="checkbox" class="btn-check" id="underline-stl" value="underline" autocomplete="off">
+            <label class="btn" for="underline-stl"><i class="bi bi-type-underline"></i></label>
+            <hr>
+
+            <textarea id="tag-txt" class="form-control" style="resize: none; height: 15rem;"></textarea>
+            <button type="button" class="btn btn-outline-dark" id="add-tag-txt">入力</button>
+            <button type="button" class="btn btn-outline-dark" id="add-tag-br">改行</button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- 포스트 미리보기 -->
+    <div class="col-8">
+      <div class="btn-group">
+        <input type="radio" class="btn-check" name="content_radio" id="content-preview-btn" checked>
+        <label class="btn btn-outline-primary" for="content-preview-btn" style="width:6rem">Preview</label>
+
+        <input type="radio" class="btn-check" name="content_radio" id="content-edit-btn">
+        <label class="btn btn-outline-primary" for="content-edit-btn" style="width:6rem">Edit</label>
+      </div>
+      <div class="form-floating">
+        <textarea name="content" id="content" class="form-control border border-primary" style="resize: none; height: 600px">{{ $post['content'] }}</textarea>
+      </div>
+      <div class="overflow-y-auto border border-primary" id="content-preview-box" style="height: 600px">
+        <div class="row">
+          <div class="col-md-2 col-1"></div>
+          <div class="post-view-content col-md-8 col-10" id="post-view-content">
+          </div>
+          <div class="col-md-2 col-1"></div>
+        </div>
+      </div>
+      <br>
+      <input type="hidden" name="id" id="post-id" value="{{ $post['id'] }}">
+      <button type="button" id="edit-exec-btn" class="btn btn-primary">公開</button>
+      <button type="button" id="store-exec-btn" class="btn btn-secondary">保管</button>
     </div>
   </div>
-  
-  <br>
-  <h3>内容</h3>
-  <div class="btn-group">
-    <input type="radio" class="btn-check" name="content_radio" id="content-edit-btn" checked>
-    <label class="btn btn-outline-primary" for="content-edit-btn" style="width:6rem">Edit</label>
-
-    <input type="radio" class="btn-check" name="content_radio" id="content-preview-btn">
-    <label class="btn btn-outline-primary" for="content-preview-btn" style="width:6rem">Preview</label>
-  </div>
-  <div class="form-floating">
-    <textarea name="content" id="content" class="form-control border border-primary" style="resize: none; height: 600px">{{ $post['content'] }}</textarea>
-  </div>
-  <div class="overflow-y-auto border border-primary" id="content-preview-box" style="height: 600px"></div>
-  <br>
-  <input type="hidden" name="id" id="post-id" value="{{ $post['id'] }}">
-  <button type="button" id="edit-exec-btn" class="btn btn-primary">公開</button>
-  <button type="button" id="store-exec-btn" class="btn btn-secondary">保管</button>
 </div>
 <script src="{{ asset('js/pages/admin/write.js') }}"></script>
 @endsection

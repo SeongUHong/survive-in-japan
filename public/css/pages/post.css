@@ -31,26 +31,39 @@
 
 .post-view-content h1 {
   font-size: 1.7rem;
-  text-decoration: underline;
+}
+.post-view-content h2 {
+  font-size: 1.7rem;
+}
+.post-view-content h3 {
+  font-size: 1.7rem;
 }
 .post-view-content img {
   width: 80%;
   display: block;
   margin: 0 auto;
 }
-.post-view-content img.right {
-  width: 80%;
-  display: block;
-  margin-left: auto;
+.post-view-content .right {
+  text-align: right;
 }
-.post-view-content img.left {
-  width: 80%;
-  display: block;
-  margin-right: auto;
+.post-view-content .left {
+  text-align: left;
+}
+.post-view-content .center {
+  text-align: center;
+}
+.post-view-content .underline {
+  text-decoration: underline;
 }
 @media (max-width: 768px) {
   .post-view-content h1 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+  }
+  .post-view-content h2 {
+    font-size: 1.4rem;
+  }
+  .post-view-content h3 {
+    font-size: 1.4rem;
   }
   .post-view-content img {
     width: 100%;
