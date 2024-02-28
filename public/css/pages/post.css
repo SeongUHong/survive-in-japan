@@ -5,7 +5,7 @@
 .post-view-title {
   margin-top: 2rem;
 }
-.post-view-title .main-title img {
+.post-view-title > .main-title img {
   width: 50%;
   display: block;
   margin: 0 auto;
