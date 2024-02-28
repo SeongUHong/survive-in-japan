@@ -21,10 +21,10 @@ function ToggleSmallMenu() {
     $(this).toggleClass('active');
     if ($(this).hasClass('active')) {
       $(this).find('span:nth-of-type(4)').text('CLOSE');
-      $('.category-modal').slideDown(400);
+      $('.category-modal').addClass('active');
     } else {
       $(this).find('span:nth-of-type(4)').text('MENU');
-      $('.category-modal').slideUp(400);
+      $('.category-modal').removeClass('active');
     }
   });
 }
