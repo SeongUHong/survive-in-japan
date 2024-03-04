@@ -36,6 +36,15 @@
 .post-view-content {
 	h1 {
 		font-size: 1.7rem;
+		&::before {
+			content: '';
+			display: inline-block;
+			width: 0.5rem;
+			height: 1.9rem;
+			background-color: #6EA4B0; /* 사각형의 배경색 */
+    		margin-right: 0.6rem;
+			vertical-align: bottom;
+		}
 	}
 	h2 {
 		font-size: 1.7rem;
@@ -66,6 +75,10 @@
 	@media (max-width: 768px) {
 		h1 {
 			font-size: 1.4rem;
+			&::before {
+				width: 0.4rem;
+				height: 1.6rem;
+			}
 		}
 		h2 {
 			font-size: 1.4rem;
