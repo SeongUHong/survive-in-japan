@@ -19,7 +19,7 @@
           {{ $category['name'] }}
         </button>
         @foreach($category['children'] as $childCategories)
-          <ul class="dropdown-menu">{{ $childCategories['name'] }}</ul>
+          <ul class="dropdown-menu category-content">{{ $childCategories['name'] }}</ul>
         @endforeach
       </div>
     @endforeach
