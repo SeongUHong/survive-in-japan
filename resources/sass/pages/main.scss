@@ -36,6 +36,23 @@
 			opacity: 1.0;
 		}
 	}
+
+	&-small-fixed-bar {
+		display: none;
+		position: fixed;
+		top: 0;
+    	left: 0;
+		padding: 2rem 0.7rem 1rem 0.7rem;
+		background-color: #F5F5F5;
+		&-title {
+			margin-top: 2rem;
+			text-align: center;
+			img {
+				width: 100%;
+				max-width: 600px;
+			}
+		}
+	}
 }
 
 .main-middle {
@@ -283,6 +300,9 @@
 		display: none !important;
 	}
 	.small-menu {
+		display: none !important;
+	}
+	.main-top-small-fixed-bar {
 		display: none !important;
 	}
 }

@@ -9,6 +9,7 @@ $(document).ready(function () {
   ClickContentCard();
   ToggleSmallCategoryDropIcon();
   ClickCategoryContent();
+  FixMenuBar();
 });
 function ClickTopLogo() {
   $('#main-top-title').on('click', function () {
@@ -37,9 +38,9 @@ function ToggleSmallCategoryDropIcon() {
     var icon = $(this).find('.category-modal-category-head-drop-icon');
     icon.toggleClass('active');
     if (icon.hasClass('active')) {
-      $(this).parent().find('.category-modal-category-body').slideDown();
+      $(this).parent().find('.category-modal-category-body').slideDown(400);
     } else {
-      $(this).parent().find('.category-modal-category-body').slideUp();
+      $(this).parent().find('.category-modal-category-body').slideUp(400);
     }
   });
 }
@@ -62,6 +63,18 @@ function ClickCategoryContent() {
   $(".category-modal").on("click", ".category-content", function () {
     var categoryId = $(this).data("category-id");
     window.location.href = "/";
+  });
+}
+
+// 상단 메뉴 고정
+function FixMenuBar() {
+  $(window).scroll(function () {
+    // 스크롤 위치가 상단 메뉴보다 아래에 있으면 고정용 상단 메뉴를 표시
+    if ($(window).scrollTop() >= $(".main-top-title").height()) {
+      $(".main-top-small-fixed-bar").slideDown(400);
+    } else {
+      $(".main-top-small-fixed-bar").hide();
+    }
   });
 }
 /******/ })()

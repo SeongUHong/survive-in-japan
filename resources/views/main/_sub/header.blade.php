@@ -23,6 +23,18 @@
         @endforeach
       </div>
     @endforeach
-    
+  </div>
+
+  <!-- 상단 고정 메뉴바 -->
+  <div class="main-top-small-fixed-bar">
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="main-top-small-fixed-bar-title col-8" id="main-top-small-fixed-bar-title">
+        <img src="{{ asset('/i/main/title.png') }}" class="img-fluid" alt="survive in japan">
+      </div>
+      <div class="col-2">
+        @include('main/_sub/small_category_menu', ['categoryList' => $categoryList])
+      </div>
+    </div>
   </div>
 </div>
