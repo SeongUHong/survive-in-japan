@@ -58,6 +58,7 @@
 .main-middle {
 	&-contents-box {
 		margin: 2rem 0.5rem;
+		user-select: none;
 		&-common, &-japanese, &-korean {
 			padding: 1rem 1rem;
 		}
@@ -140,6 +141,7 @@
 	position: relative;
 	display: inline-block;
 	transition: all .4s;
+	user-select: none;
 
 	span {
 		display: inline-block;
@@ -201,6 +203,7 @@
 	transform: translate(-50%, -10%);
 	z-index: 100; // 다른 요소들 위에 표시
 	overflow-y: auto; // 모달 내용이 길 경우 스크롤
+	user-select: none;
 	transition: opacity .4s, visibility .4s, transform .4s; // opacity 트랜지션과 visibility 지연 설정
 	// 활성화 시
 	&.active {
