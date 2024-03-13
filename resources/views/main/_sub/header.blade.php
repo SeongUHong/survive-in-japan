@@ -18,9 +18,11 @@
         <button class="btn btn-secondary btn-md dropdown-toggle bg-white text-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           {{ $category['name'] }}
         </button>
-        @foreach($category['children'] as $childCategories)
-          <ul class="dropdown-menu category-content">{{ $childCategories['name'] }}</ul>
-        @endforeach
+        <ui class="dropdown-menu">
+          @foreach($category['children'] as $childCategory)
+            <li class="dropdown-item category-content" data-category-id="{{ $childCategory['id'] }}">{{ $childCategory['name'] }}</li>
+          @endforeach
+        </ui>
       </div>
     @endforeach
   </div>

@@ -55,7 +55,7 @@
      -moz-user-select: none;
           user-select: none;
 }
-.main-middle-contents-box-common, .main-middle-contents-box-japanese, .main-middle-contents-box-korean {
+.main-middle-contents-box-common, .main-middle-contents-box-japanese, .main-middle-contents-box-korean, .main-middle-contents-box-category {
   padding: 1rem 1rem;
 }
 .main-middle-content {
@@ -311,6 +311,9 @@
     display: none !important;
   }
   .main-middle-contents-box-korean {
+    display: none !important;
+  }
+  .main-middle-contents-box-category {
     display: none !important;
   }
   .main-top-category-btn {

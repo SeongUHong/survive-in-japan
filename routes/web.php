@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 # TOP
 Route::get('/', 'App\Http\Controllers\MainController@Index');
+# 카테고리별
+Route::get('/category/{id}', 'App\Http\Controllers\MainController@Category');
 
 #===================
 # 관리자 페이지

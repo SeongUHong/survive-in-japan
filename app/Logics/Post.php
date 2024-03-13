@@ -101,6 +101,40 @@ class Post {
 		return call_user_func_array($origin, []);
 	}
 
+	public function GetPublicPostsByCategoryIdAndPage($categoryId, $page, $options = []) {
+		// 캐시 옵션
+		$withCache = null;
+		if (Util::CanGetArrayValue($options, 'withCache')) {
+			$withCache = 1;
+		}
+
+		$origin = function () use ($page, $categoryId, $options) {
+			$posts = (new \App\Entities\Post())->BuildMultiByPageAndCategoryIds(
+				$page,
+				[$categoryId],
+				['status' => [
+					\App\Consts\Post::STATUS['PUBLIC']
+				]]
+			);
+			// 메인화면용
+			if (Util::CanGetArrayValue($options, 'forMain')) {
+				return array_map(function($post) {
+					return $post->ToArrayForMain();
+				}, $posts);
+			}
+
+			return array_map(function($post) {
+				return $post->ToArray();
+			}, $posts);
+		};
+
+		if (isset($withCache)) {
+			return Cache::remember("GetPublicPostsByCategoryIdAndPage:$categoryId:$page", \App\Consts\Cache::CACHE_TIME, $origin);
+		}
+
+		return call_user_func_array($origin, []);
+	}
+
 	public function GetKoreanPostsWithoutRemovedByPage($page) {
 		$categoryIds = (new \App\Logics\Category())->GetKoreanCategoryIds();
 		$posts = (new \App\Entities\Post())->BuildMultiByPageAndCategoryIds(

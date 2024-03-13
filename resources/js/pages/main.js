@@ -60,9 +60,13 @@ function ClickContentCard() {
 
 // 카테고리 클릭
 function ClickCategoryContent() {
-    $(".category-modal").on("click", ".category-content", function() {
+    $(".category-content").on("click", function() {
         var categoryId = $(this).data("category-id");
-        window.location.href = "/";
+        if (typeof categoryId == "undefined" || categoryId == null || categoryId == "") {
+            window.location.href = "/";
+            return;
+        }
+        window.location.href = "/category/" + categoryId;
     });
 }
 

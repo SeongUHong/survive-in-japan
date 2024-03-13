@@ -22,4 +22,14 @@ class MainController extends Controller
 			'allPostList'      => $allPostList,
 		]);
 	}
+
+	// 카테고리별 포스트
+	public function Category($id) {
+		$categoryList = (new \App\Logics\Category)->GetAllCategories(['withCache' => 1]);
+		$posts = (new \App\Logics\Post)->GetPublicPostsByCategoryIdAndPage($id, 1, ['forMain' => 1]);
+		return view('main/category', [
+			'categoryList'  => $categoryList,
+			'postList'      => $posts,
+		]);
+	}
 }
