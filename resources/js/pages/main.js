@@ -5,6 +5,7 @@ $(document).ready(function() {
     ToggleSmallCategoryDropIcon();
     ClickCategoryContent();
     FixMenuBar();
+    ClickTopScrollBtn();
 });
 
 function ClickTopLogo() {
@@ -74,6 +75,13 @@ function FixMenuBar() {
         } else {
             $(".main-top-small-fixed-bar").hide();
         }
+    });
+}
+
+// 스크롤을 위로 보내는 버튼
+function ClickTopScrollBtn() {
+    $(".top-scroll-btn").on('click', function() {
+        $("html, body").scrollTop(0);
     });
 }
 

@@ -58,7 +58,6 @@
 .main-middle {
 	&-contents-box {
 		margin: 2rem 0.5rem;
-
 		&-common, &-japanese, &-korean {
 			padding: 1rem 1rem;
 		}
@@ -175,7 +174,7 @@
 }
 /* 중앙 라인이 고정된 자리에서 투명하게 사라지며 상하라인 회전하며 엑스자 만들기 */
 .small-menu.active span:nth-of-type(1) {
-	-webkit-transform: translateY (0.6rem) rotate (-45deg);
+	-webkit-transform: translateY(0.6rem) rotate(-45deg);
 	transform: translateY(0.6rem) rotate(-45deg);
 }
 .small-menu.active span:nth-of-type(2) {
@@ -279,9 +278,65 @@
 	}
 	
 }
-
 // 카테고리 모달
 // =================
+
+// 고정 영역
+.main-bottom-fixed {
+	position: fixed;
+	display: flex;
+	width: 100%;
+	height:0; // div가 다른 컨텐츠를 가려버리므로 높이를 0로 고정
+	bottom: 10rem;
+	&-left {
+		flex: 9;
+	}
+	&-right {
+		flex: 1;
+	}
+}
+//
+// 탑스크롤 버튼
+// =================
+.top-scroll-btn {
+	position: relative;
+	border: none;
+    border-radius: 50%;
+    background-color: #9C9C9C;
+	opacity: 40%;
+    transition: opacity .4s;
+	width: 4.3rem;
+	height: 4.3rem;
+	&::before,
+	&::after {
+		content: "";
+		position: absolute;
+		background-color: white;
+		transition: opacity .4s, transform .4s;
+	}
+	&::before {
+		top: 1.5rem;
+		left: 2.2rem;
+		width: 0.2rem;
+		height: 0.9rem;
+		transform-origin: top left; // 회전 중심을 바꿈
+		transform: rotate(45deg);
+	}
+	&::after {
+		top: 1.5rem;
+		left: 2rem;
+		width: 0.2rem;
+		height: 0.9rem;
+		transform-origin: top right; // 회전 중심을 바꿈
+		transform: rotate(-45deg);
+	}
+	// 호버 상태일 때의 스타일
+	&:hover {
+		opacity: 70%;
+	}
+}
+// =================
+// 탑스크롤 버튼
 
 @media (max-width: 768px) {
 	.main-middle-contents-box-japanese {
@@ -291,6 +346,9 @@
 		display: none !important;
 	}
 	.main-top-category-btn {
+		display: none !important;
+	}
+	.main-bottom-fixed {
 		display: none !important;
 	}
 }
