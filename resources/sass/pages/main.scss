@@ -62,6 +62,24 @@
 		&-common, &-japanese, &-korean, &-category{
 			padding: 1rem 1rem;
 		}
+
+		&-category {
+			display: flex;
+			flex-wrap: wrap;
+			>div {
+				&:nth-of-type(odd) { // 홀수 순번의 div
+					width: 50%;
+					padding-right: 1rem;
+				}
+				&:nth-of-type(even) { // 짝수 순번의 div
+					width: 50%;
+					padding-left: 1rem;
+				}
+				>div { // 카테고리 페이지의 content-card는 margin을 줄임
+					margin-bottom: 1rem;
+				}
+			}
+		}
 	}
 
 	&-content {

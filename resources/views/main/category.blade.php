@@ -11,14 +11,14 @@
     @include('main/_sub/header')
     <!-- 메인 컨텐츠 -->
     <div class="main-middle container">
-      <div class="main-middle-contents-box">
+      <div class="main-middle-contents-box row">
         <!-- 컨텐츠 -->
-        <div class="main-middle-contents-box-category row">
-          @foreach($postList as $post)
-            <div class="col-6">
-              @include('main/_sub/content_card', ['post' => $post])
-            </div>
-          @endforeach
+        <div class="main-middle-contents-box-category col">
+            @foreach($postList as $post)
+              <div>
+                @include('main/_sub/content_card', ['post' => $post])
+              </div>
+            @endforeach
         </div>
 
         <!-- 컨텐츠 작은 화면 -->

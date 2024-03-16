@@ -58,6 +58,21 @@
 .main-middle-contents-box-common, .main-middle-contents-box-japanese, .main-middle-contents-box-korean, .main-middle-contents-box-category {
   padding: 1rem 1rem;
 }
+.main-middle-contents-box-category {
+  display: flex;
+  flex-wrap: wrap;
+}
+.main-middle-contents-box-category > div:nth-of-type(odd) {
+  width: 50%;
+  padding-right: 1rem;
+}
+.main-middle-contents-box-category > div:nth-of-type(even) {
+  width: 50%;
+  padding-left: 1rem;
+}
+.main-middle-contents-box-category > div > div {
+  margin-bottom: 1rem;
+}
 .main-middle-content {
   margin: 1rem 1rem 2rem 1rem;
   height: 7rem;
