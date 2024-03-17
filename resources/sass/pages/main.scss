@@ -56,6 +56,19 @@
 }
 
 .main-middle {
+	// 카테고리 이름
+	&-category-name {
+		margin: 1rem 2.5rem 0 2.5rem;
+		border-bottom: 0.2rem solid #4F4A4A;
+		font-size: 2rem;
+	}
+	// 카테고리 이름 작은 버전
+	&-small-category-name {
+		margin: 1rem 1.5rem 0 1.5rem;
+		border-bottom: 0.1rem solid #4F4A4A;
+		font-size: 1rem;
+	}
+
 	&-contents-box {
 		margin: 2rem 0.5rem;
 		user-select: none;
@@ -375,16 +388,22 @@
 	.main-bottom-fixed {
 		display: none !important;
 	}
+	.main-middle-category-name { // 카테고리 이름
+		display: none !important;
+	}
 }
 
 @media (min-width: 769px) {
-	.main-middle-contents-box-all {
+	.main-middle-contents-box-all { // 컨텐츠 카드
 		display: none !important;
 	}
-	.small-menu {
+	.small-menu { // 햄버거 메뉴
 		display: none !important;
 	}
-	.main-top-small-fixed-bar {
+	.main-top-small-fixed-bar { // 탑스크롤 버튼
+		display: none !important;
+	}
+	.main-middle-small-category-name { // 카테고리 이름
 		display: none !important;
 	}
 }

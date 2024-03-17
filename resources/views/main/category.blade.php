@@ -11,6 +11,17 @@
     @include('main/_sub/header')
     <!-- 메인 컨텐츠 -->
     <div class="main-middle container">
+
+      <!-- 카테고리 이름 -->
+      <div class="main-middle-category-name">
+        <span>{{ $categoryName }}</span>
+      </div>
+
+      <!-- 카테고리 이름 작은 버전-->
+      <div class="main-middle-small-category-name">
+        <span>{{ $categoryName }}</span>
+      </div>
+
       <div class="main-middle-contents-box row">
         <!-- 컨텐츠 -->
         <div class="main-middle-contents-box-category col">
@@ -20,7 +31,6 @@
               </div>
             @endforeach
         </div>
-
         <!-- 컨텐츠 작은 화면 -->
         <div class="main-middle-contents-box-all col-12">
           @foreach($postList as $post)

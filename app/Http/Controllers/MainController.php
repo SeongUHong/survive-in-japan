@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Logics\Util;
 
 class MainController extends Controller
 {
@@ -25,10 +26,17 @@ class MainController extends Controller
 
 	// 카테고리별 포스트
 	public function Category($id) {
+		$categoryNameById = (new \App\Logics\Category())->GetCategoryNameArray(['withCache' => 1]);
+		// 유효 카테고리 체크
+		if (! Util::CanGetArrayValue($categoryNameById, $id)) {
+			return redirect(url("/"));
+		}
+
 		$categoryList = (new \App\Logics\Category)->GetAllCategories(['withCache' => 1]);
 		$posts = (new \App\Logics\Post)->GetPublicPostsByCategoryIdAndPage($id, 1, ['forMain' => 1]);
 		return view('main/category', [
 			'categoryList'  => $categoryList,
+			'categoryName'  => $categoryNameById[$id],
 			'postList'      => $posts,
 		]);
 	}
