@@ -36,15 +36,6 @@
 .post-view-content {
 	h1 {
 		font-size: 1.7rem;
-		&::before {
-			content: '';
-			display: inline-block;
-			width: 0.5rem;
-			height: 1.9rem;
-			background-color: #6EA4B0; /* 사각형의 배경색 */
-    		margin-right: 0.6rem;
-			vertical-align: bottom;
-		}
 	}
 	h2 {
 		font-size: 1.7rem;
@@ -67,18 +58,143 @@
 	.center {
 		text-align: center;
 	}
+	
+	//====================================
+	//           텍스트 스타일
+	//====================================
+	// 밑줄
 	.underline {
 		text-decoration: underline;
 	}
+	// 左線
+	.left-line {
+		&::before {
+			content: '';
+			display: inline-block;
+			width: 0.5rem;
+			height: 1.9rem;
+			background-color: #6EA4B0; /* 사각형의 배경색 */
+    		margin-right: 0.6rem;
+			vertical-align: bottom;
+		}
+	}
+	// 囲み戦
+	.kakomisen {
+		padding: 1rem 2rem;
+		border: 3px solid #000;
+	}
+	// 背景色
+	.haikeiiro {
+		padding: 1rem 2rem;
+		background: white;
+	}
+	// 中央電球シンボル
+	.center-symbol {
+		position: relative;
+		padding: 1.5rem;
+		text-align: center;
+		border: 2px solid #000;
+		background: #F5F5F5;
+		word-wrap: break-word;
+		&::before, &::after {
+			position: absolute;
+			content: '';
+		}
+		&::before {
+			top: -40px;
+			left: calc(50% - 40px);
+			width: 80px;
+			height: 80px;
+			border: 2px solid #000;
+			border-radius: 50%;
+			background: #F5F5F5;
+		}
+		&::after {
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: #F5F5F5;
+		}
+		>img {
+			position: absolute;
+			z-index: 1;
+			top: -1.5rem;
+			left: calc(50% - 1.1rem);
+			width: 2.2rem;
+			text-align: center;
+		}
+		>span {
+			position: relative;
+			z-index: 1;
+		}
+	}
+	// 両サイドに線
+	.either-side-line {
+		position: relative;
+		padding: 0 65px;
+		text-align: center;
+		word-wrap: break-word;
+		&::before {
+			position: absolute;
+			top: calc(50% - 1px);
+			left: 0;
+			width: 100%;
+			height: 2px;
+			content: '';
+			background: #000;
+		}
+		>span {
+			position: relative;
+			background: #F5F5F5;
+		}
+	}
+	// 下に小さな線
+	.short-underline {
+		position: relative;
+		padding: 1.2rem;
+		text-align: center;
+		word-wrap: break-word;
+		&::before {
+			position: absolute;
+			bottom: 0;
+			left: calc(50% - 30px);
+			width: 60px;
+			height: 5px;
+			content: '';
+			border-radius: 3px;
+			background: #000;
+		}
+	}
+	// サブコピー
+	.subcopy {
+		position: relative;
+		padding: 1rem 2rem;
+		text-align: center;
+		border: 3px solid #000;
+		
+		&::before {
+			font-size: 0.8rem;
+			position: absolute;
+			top: -1.1rem;
+			left: -3px;
+			height: 1.1rem;
+			width: auto;
+			padding: 0 1rem;
+			content: 'POINT';
+			color: #fff;
+			background: #000;
+		}
+	}
 
+	//====================================
+	//           텍스트 스타일
+	//====================================
+	  
 	// 스마트폰용
 	@media (max-width: 768px) {
 		h1 {
 			font-size: 1.4rem;
-			&::before {
-				width: 0.4rem;
-				height: 1.6rem;
-			}
 		}
 		h2 {
 			font-size: 1.4rem;
@@ -91,6 +207,13 @@
 			width: 100%;
 			display: block;
 			margin: 0 auto;
+		}
+		// 左線
+		.left-line {
+			&::before {
+				width: 0.4rem;
+				height: 1.6rem;
+			}
 		}
 	}
 }

@@ -101,11 +101,6 @@ $(document).ready(function() {
         });
     });
 
-    // 텍스트 태그 입력 버튼 클릭
-    clickAddTagTextBtn();
-    // 개행 버튼 클릭
-    clickAddTagBrBtn();
-
     // 컨텐츠 에리어에서 포커스를 잃었을때 포스트를 저장함
     $("#content").blur(function() {
         var content = $(this).val();
@@ -216,6 +211,15 @@ $(document).ready(function() {
             }
         });
     });
+
+    // 텍스트 태그 입력 버튼 클릭
+    clickAddTagTextBtn();
+    // 개행 버튼 클릭
+    clickAddTagBrBtn();
+    // 텍스트 디자인 샘플 선택
+    selectTxtDesign();
+    // 텍스트 입력
+    updateSampleText();
 });
 
 // 동적으로 생성된 요소에 클릭 이벤트 바인딩
@@ -295,9 +299,12 @@ function clickAddTagTextBtn() {
         }
 
         // html코드 작성
-        var html = "<" + tag + " class='" + cls + "'>" + txt + "</" + tag + ">\n";
+        var html = $('<' + tag + '>');
+        html.addClass(cls);
+        html.text(txt);
+        applyTxtDesign(html);
 
-        $("#content").val($("#content").val() + html);
+        $("#content").val($("#content").val() + html.prop('outerHTML'));
         $("#tag-txt").val("");
 
         updatePreview();
@@ -318,3 +325,78 @@ function updatePreview() {
     $("#post-view-content").append("<span style='padding:0.2rem;border-left: 0.2rem solid black;'></span>");
 }
 
+// 텍스트 입력 감지
+function updateSampleText() {
+    $('#tag-txt').on('input', function() {
+        var text = $(this).val();
+        var element = $("#sample-design-text");
+        element.removeClass();
+        element.html('');
+        element.text(text);
+        applyTxtDesign(element);
+    });
+}
+
+// 텍스트 디자인 샘플 선택
+function selectTxtDesign() {
+    $("#text-design-select").change(function(){
+        var text = $('#tag-txt').val();
+        var element = $("#sample-design-text");
+        element.removeClass();
+        element.html('');
+        element.text(text);
+        applyTxtDesign(element);
+    });
+}
+
+// 텍스트 샘플 디자인 적용
+function applyTxtDesign(targetElement) {
+    var designName = $("#text-design-select").val();
+    if (designName == '') {
+        return;
+    }
+
+    // 텍스트 추출
+    var text = targetElement.text();
+
+    // 디자인 적용
+    if (designName == "left-line" ||
+        designName == "kakomisen" ||
+        designName == "haikeiiro" ||
+        designName == "short-underline" ||
+        designName == "subcopy") {
+        txtDesignClass(targetElement, designName, text);
+    } else if (designName == "either-side-line") {
+        txtDesignClassSpan(targetElement, designName, text);
+    } else if (designName == "center-symbol") {
+        txtDesignClassSpanImg(targetElement, designName, text, "/i/icon/lightbulb.svg");
+    }
+
+    return targetElement;
+}
+
+//====================================
+//           텍스트 스타일
+//====================================
+// 클래스만 추가
+function txtDesignClass(element, className, txt) {
+    element.addClass(className);
+    element.text(txt);
+}
+function txtDesignClassSpan(element, className, txt) {
+    element.addClass(className);
+    var span = $('<span>');
+    span.text(txt);
+    element.html(span);
+}
+function txtDesignClassSpanImg(element, className, txt, imgPath) {
+    element.addClass(className);
+    // img태그 추가
+    var img = $('<img>');
+    img.attr('src', imgPath);
+    element.html(img);
+    // span태그 추가
+    var span = $('<span>');
+    span.text(txt);
+    element.append(span);
+}

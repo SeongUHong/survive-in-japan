@@ -132,8 +132,26 @@
             <!-- 밑줄 -->
             <input type="checkbox" class="btn-check" id="underline-stl" value="underline" autocomplete="off">
             <label class="btn" for="underline-stl"><i class="bi bi-type-underline"></i></label>
+            <br>
             <hr>
-
+            <p><b>テキストデザイン</b></p>
+            <select class="form-select" id="text-design-select">
+              <option value="">なし</option>
+              <option value="left-line">左線</option>
+              <option value="kakomisen">囲み戦</option>
+              <option value="haikeiiro">背景色</option>
+              <option value="center-symbol">中央電球シンボル</option>
+              <option value="either-side-line">両サイドに線</option>
+              <option value="short-underline">下に小さな線</option>
+              <option value="subcopy">サブコピー</option>
+            </select>
+            <div class="row" style="background-color: #F5F5F5;">
+              <div class="col-md-2 col-1"></div>
+              <div class="post-view-content col-md-8 col-10" style="height: 10rem; margin-top:4rem">
+                <h1 id="sample-design-text"></h1>
+              </div>
+              <div class="col-md-2 col-1"></div>
+            </div>
             <textarea id="tag-txt" class="form-control" style="resize: none; height: 15rem;"></textarea>
             <button type="button" class="btn btn-outline-dark" id="add-tag-txt">入力</button>
             <button type="button" class="btn btn-outline-dark" id="add-tag-br">改行</button>

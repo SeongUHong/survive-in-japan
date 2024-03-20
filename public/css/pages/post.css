@@ -33,15 +33,6 @@
 .post-view-content h1 {
   font-size: 1.7rem;
 }
-.post-view-content h1::before {
-  content: "";
-  display: inline-block;
-  width: 0.5rem;
-  height: 1.9rem;
-  background-color: #6EA4B0; /* 사각형의 배경색 */
-  margin-right: 0.6rem;
-  vertical-align: bottom;
-}
 .post-view-content h2 {
   font-size: 1.7rem;
 }
@@ -65,13 +56,119 @@
 .post-view-content .underline {
   text-decoration: underline;
 }
+.post-view-content .left-line::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 1.9rem;
+  background-color: #6EA4B0; /* 사각형의 배경색 */
+  margin-right: 0.6rem;
+  vertical-align: bottom;
+}
+.post-view-content .kakomisen {
+  padding: 1rem 2rem;
+  border: 3px solid #000;
+}
+.post-view-content .haikeiiro {
+  padding: 1rem 2rem;
+  background: white;
+}
+.post-view-content .center-symbol {
+  position: relative;
+  padding: 1.5rem;
+  text-align: center;
+  border: 2px solid #000;
+  background: #F5F5F5;
+  word-wrap: break-word;
+}
+.post-view-content .center-symbol::before, .post-view-content .center-symbol::after {
+  position: absolute;
+  content: "";
+}
+.post-view-content .center-symbol::before {
+  top: -40px;
+  left: calc(50% - 40px);
+  width: 80px;
+  height: 80px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  background: #F5F5F5;
+}
+.post-view-content .center-symbol::after {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #F5F5F5;
+}
+.post-view-content .center-symbol > img {
+  position: absolute;
+  z-index: 1;
+  top: -1.5rem;
+  left: calc(50% - 1.1rem);
+  width: 2.2rem;
+  text-align: center;
+}
+.post-view-content .center-symbol > span {
+  position: relative;
+  z-index: 1;
+}
+.post-view-content .either-side-line {
+  position: relative;
+  padding: 0 65px;
+  text-align: center;
+  word-wrap: break-word;
+}
+.post-view-content .either-side-line::before {
+  position: absolute;
+  top: calc(50% - 1px);
+  left: 0;
+  width: 100%;
+  height: 2px;
+  content: "";
+  background: #000;
+}
+.post-view-content .either-side-line > span {
+  position: relative;
+  background: #F5F5F5;
+}
+.post-view-content .short-underline {
+  position: relative;
+  padding: 1.2rem;
+  text-align: center;
+  word-wrap: break-word;
+}
+.post-view-content .short-underline::before {
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 30px);
+  width: 60px;
+  height: 5px;
+  content: "";
+  border-radius: 3px;
+  background: #000;
+}
+.post-view-content .subcopy {
+  position: relative;
+  padding: 1rem 2rem;
+  text-align: center;
+  border: 3px solid #000;
+}
+.post-view-content .subcopy::before {
+  font-size: 0.8rem;
+  position: absolute;
+  top: -1.1rem;
+  left: -3px;
+  height: 1.1rem;
+  width: auto;
+  padding: 0 1rem;
+  content: "POINT";
+  color: #fff;
+  background: #000;
+}
 @media (max-width: 768px) {
   .post-view-content h1 {
     font-size: 1.4rem;
-  }
-  .post-view-content h1::before {
-    width: 0.4rem;
-    height: 1.6rem;
   }
   .post-view-content h2 {
     font-size: 1.4rem;
@@ -83,5 +180,9 @@
     width: 100%;
     display: block;
     margin: 0 auto;
+  }
+  .post-view-content .left-line::before {
+    width: 0.4rem;
+    height: 1.6rem;
   }
 }
