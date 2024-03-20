@@ -1,33 +1,84 @@
 const { colors } = require("laravel-mix/src/Log");
 
 $(document).ready(function() {
-    // 프리뷰 영역 숨기기
+    // 프리뷰 영역 갱신 후 입력 영역 숨기기
     updatePreview();
     $("#content").hide();
-
+    
     // Preview 클릭시 작성 프리뷰 영역을 표시하고 작성중인 글을 렌더링함
+    showPreviewArea();
+    // Edit 클릭시 텍스트 에리어를 표시함
+    showEditArea();
+    // 이미지 추가 버튼 클릭시 컨텐츠에 이미지 태그 추가
+    addImgTag();
+    // 이미지 저장 리퀘스트
+    uploadImg();
+    // 썸네일 저장 리퀘스트
+    uploadThumb();
+    // 컨텐츠 에리어에서 포커스를 잃었을때 포스트를 저장함
+    autoSaveContentErea();
+    // 공개 실행
+    execEdit();
+    // 보관 실행 이벤트
+    execStore();
+    // 이미지 클릭 이벤트
+    bindImageClickEvent();
+    // 텍스트 태그 입력 버튼 클릭
+    clickAddTagTextBtn();
+    // 개행 버튼 클릭
+    clickAddTagBrBtn();
+    // 텍스트 디자인 샘플 선택
+    selectTxtDesign();
+    // 텍스트 입력
+    updateSampleText();
+});
+
+// Preview 클릭시 작성 프리뷰 영역을 표시하고 작성중인 글을 렌더링함
+function showPreviewArea() {
     $("#content-preview-btn").on("click", function() {
         updatePreview();
         $("#content").hide();
         $("#content-preview-box").show();
     });
+}
 
-    // Edit 클릭시 텍스트 에리어를 표시함
+// Edit 클릭시 텍스트 에리어를 표시함
+function showEditArea() {
     $("#content-edit-btn").on("click", function() {
         $("#content-preview-box").hide();
         $("#content").show();
     });
+}
 
-    // 이미지 추가 버튼 클릭시 컨텐츠에 이미지 태그 추가
-    // 프리뷰 영역 갱신
+// 이미지 추가 버튼 클릭시 컨텐츠에 이미지 태그 추가
+function addImgTag() {
     $("#add-img-tab-btn").on("click", function() {
         var imagePath = $("#target-image").data("image-path");
         var imageTag = "<img src='" + imagePath + "' alt=''>";
         $("#content").val($("#content").val() + imageTag);
+        // 프리뷰 영역 갱신
         updatePreview();
     });
+}
 
-    // 이미지 저장 리퀘스트
+// 이미지 클릭 이벤트
+function bindImageClickEvent() {
+    // 동적으로 생성된 요소에 클릭 이벤트 바인딩
+    $("#img-box").on("click", ".img-thumbnail", function() {
+        // 다른 img-thumbnail 요소들의 클래스, ID를 삭제
+        $(".img-thumbnail").not(this).removeClass("border border-primary border-3").removeAttr("id");
+        // 현재 클릭한 img-thumbnail 요소에 클래스, ID를 추가 또는 제거
+        $(this).toggleClass("border border-primary border-3");
+        
+        // ID가 없는 경우에만 ID 설정
+        if (!$(this).attr("id")) {
+            $(this).attr("id", "target-image");
+        }
+    });
+}
+
+// 이미지 저장 리퀘스트
+function uploadImg() {
     $("#upload-img-btn").on("click", function() {
         // 이미지 파일 가져오기
         var imageFile = $("#image-input")[0].files[0];
@@ -63,8 +114,10 @@ $(document).ready(function() {
             }
         });
     });
+}
 
-    // 썸네일 저장 리퀘스트
+// 썸네일 저장 리퀘스트
+function uploadThumb() {
     $("#upload-thumb-btn").on("click", function() {
         // 이미지 파일 가져오기
         var imageFile = $("#thumb-input")[0].files[0];
@@ -100,8 +153,10 @@ $(document).ready(function() {
             }
         });
     });
+}
 
-    // 컨텐츠 에리어에서 포커스를 잃었을때 포스트를 저장함
+// 컨텐츠 에리어에서 포커스를 잃었을때 포스트를 저장함
+function autoSaveContentErea() {
     $("#content").blur(function() {
         var content = $(this).val();
         var title = $("#title").val();
@@ -132,8 +187,10 @@ $(document).ready(function() {
             }
         });
     });
+}
 
-    // 공개 실행
+// 공개 실행
+function execEdit() {
     $("#edit-exec-btn").on("click", function() {
         var formMap = getForm();
 
@@ -179,8 +236,10 @@ $(document).ready(function() {
             }
         });
     });
+}
 
-    // 보관 실행
+// 보관 실행
+function execStore() {
     $("#store-exec-btn").on("click", function() {
         var formMap = getForm();
 
@@ -211,29 +270,7 @@ $(document).ready(function() {
             }
         });
     });
-
-    // 텍스트 태그 입력 버튼 클릭
-    clickAddTagTextBtn();
-    // 개행 버튼 클릭
-    clickAddTagBrBtn();
-    // 텍스트 디자인 샘플 선택
-    selectTxtDesign();
-    // 텍스트 입력
-    updateSampleText();
-});
-
-// 동적으로 생성된 요소에 클릭 이벤트 바인딩
-$("#img-box").on("click", ".img-thumbnail", function() {
-    // 다른 img-thumbnail 요소들의 클래스, ID를 삭제
-    $(".img-thumbnail").not(this).removeClass("border border-primary border-3").removeAttr("id");
-    // 현재 클릭한 img-thumbnail 요소에 클래스, ID를 추가 또는 제거
-    $(this).toggleClass("border border-primary border-3");
-    
-    // ID가 없는 경우에만 ID 설정
-    if (!$(this).attr("id")) {
-        $(this).attr("id", "target-image");
-    }
-});
+}
 
 function getForm() {
     var categoryId = '';
