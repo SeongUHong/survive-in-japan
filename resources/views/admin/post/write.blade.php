@@ -171,9 +171,9 @@
         <label class="btn btn-outline-primary" for="content-edit-btn" style="width:6rem">Edit</label>
       </div>
       <div class="form-floating">
-        <textarea name="content" id="content" class="form-control border border-primary" style="resize: none; height: 600px">{{ $post['content'] }}</textarea>
+        <textarea name="content" id="content" class="form-control border border-primary" style="resize: none; height: 60rem">{{ $post['content'] }}</textarea>
       </div>
-      <div class="overflow-y-auto border border-primary" id="content-preview-box" style="height: 600px">
+      <div class="overflow-y-auto border border-primary" id="content-preview-box" style="height: 60rem">
         <div class="row">
           <div class="col-md-2 col-1"></div>
           <div class="post-view-content col-md-8 col-10" id="post-view-content">
