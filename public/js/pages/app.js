@@ -16,6 +16,9 @@ function ClickTopLogo() {
   $('#main-top-title').on('click', function () {
     window.location.href = "/";
   });
+  $('#main-top-small-fixed-bar-title').on('click', function () {
+    window.location.href = "/";
+  });
 }
 
 // 햄버거 메뉴 클릭
