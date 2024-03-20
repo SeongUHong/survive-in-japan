@@ -58,7 +58,7 @@
 
   <div class="row">
     <!-- 포스트 작성 도구 -->
-    <div class="col-4">
+    <div class="col-md-4 col-12">
 
       <!-- 이미지 업로드 -->
       <div class="d-grid">
@@ -162,7 +162,7 @@
     </div>
 
     <!-- 포스트 미리보기 -->
-    <div class="col-8">
+    <div class="col-md-8 col-12">
       <div class="btn-group">
         <input type="radio" class="btn-check" name="content_radio" id="content-preview-btn" checked>
         <label class="btn btn-outline-primary" for="content-preview-btn" style="width:6rem">Preview</label>
