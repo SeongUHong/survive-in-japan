@@ -183,8 +183,10 @@
       </div>
       <br>
       <input type="hidden" name="id" id="post-id" value="{{ $post['id'] }}">
-      <button type="button" id="edit-exec-btn" class="btn btn-primary">公開</button>
-      <button type="button" id="store-exec-btn" class="btn btn-secondary">保管</button>
+      <div style="text-align:right">
+        <button type="button" id="edit-exec-btn" class="btn btn-primary">公開</button>
+        <button type="button" id="store-exec-btn" class="btn btn-secondary">保管</button>
+      </div>
     </div>
   </div>
 </div>
