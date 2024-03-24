@@ -33,6 +33,38 @@
 	}
 }
 
+// 목차
+.post-view-toc {
+	margin: 1rem 0 3rem 0;
+    padding: 1em 1em 1em 2em;
+    border: 1px solid #999;
+    background-color: #f7f7f7;
+    color: #333333;
+	>div {
+		display: flex;
+		align-items: center;
+		margin: 0 2rem;
+		font-size: 2rem;
+		padding: 5px 0;
+	}
+	>ol {
+		list-style-type: decimal;
+		margin: 0;
+		padding: 0 1.2em;
+		overflow: hidden;
+		ol {
+			margin-top: 0.5rem;
+		}
+	}
+	li {
+		padding: 0.1rem 0;
+	}
+	a {
+		color: #166c9d;
+	}
+}
+
+// 내용
 .post-view-content {
 	h1 {
 		font-size: 1.7rem;

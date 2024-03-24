@@ -30,6 +30,36 @@
   }
 }
 
+.post-view-toc {
+  margin: 1rem 0 3rem 0;
+  padding: 1em 1em 1em 2em;
+  border: 1px solid #999;
+  background-color: #f7f7f7;
+  color: #333333;
+}
+.post-view-toc > div {
+  display: flex;
+  align-items: center;
+  margin: 0 2rem;
+  font-size: 2rem;
+  padding: 5px 0;
+}
+.post-view-toc > ol {
+  list-style-type: decimal;
+  margin: 0;
+  padding: 0 1.2em;
+  overflow: hidden;
+}
+.post-view-toc > ol ol {
+  margin-top: 0.5rem;
+}
+.post-view-toc li {
+  padding: 0.1rem 0;
+}
+.post-view-toc a {
+  color: #166c9d;
+}
+
 .post-view-content h1 {
   font-size: 1.7rem;
 }
