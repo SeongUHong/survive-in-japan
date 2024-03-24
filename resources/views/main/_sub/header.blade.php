@@ -15,7 +15,7 @@
   <div class="main-top-category">
     @foreach($categoryList as $category)
       <div class="main-top-category-btn btn-group">
-        <button class="btn btn-secondary btn-md dropdown-toggle bg-white text-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
           {{ $category['name'] }}
         </button>
         <ui class="dropdown-menu">

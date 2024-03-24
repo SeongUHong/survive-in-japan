@@ -20,20 +20,17 @@
 	}
 
 	&-category {
-		margin-left: 1rem;
+		margin: 0.8rem 0 0 1rem;
 
 		&-btn {
 			margin: 1rem 0.5rem;
-		}
-
-		&-name {
-			margin: 1rem 1rem;
-		}
-
-		&-name-line {
-			background-color: #4F4A4A;
-			height: 0.2rem;
-			opacity: 1.0;
+			>button {
+				border-radius: 0.9rem;
+				border: 0.1rem solid black;
+				padding: 0.3rem 0;
+				width: 11rem;
+				background-color: white;
+			}
 		}
 	}
 
