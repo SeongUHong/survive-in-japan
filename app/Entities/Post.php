@@ -6,7 +6,7 @@ use App\Logics\Util;
 
 class Post {
 	public $post;
-	public $postMetaArr = array(); // [ post_key => post_meta ]
+	public $postMetas = array(); // [ post_key => post_meta ]
 
 	// parameter : post model, [postMetas model]
 	public function Build($post, $postMetas) {
@@ -16,9 +16,7 @@ class Post {
 
 		$self = new static;
 		$self->post = $post;
-		$self->postMetaArr = collect($postMetas)->groupBy(function ($item, $key) {
-			return $item->key;
-		});
+		$self->postMetas = $postMetas;
 
 		return $self;
 	}
@@ -92,7 +90,7 @@ class Post {
 		];
 
 		$metas = [];
-		foreach ($this->postMetaArr as $key => $postMeta) {
+		foreach ($this->postMetas as $postMeta) {
 			$metas['name'] = $postMeta->key;
 			$metas['content'] = $postMeta->value;
 		}

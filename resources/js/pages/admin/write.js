@@ -31,6 +31,10 @@ $(document).ready(function() {
     selectTxtDesign();
     // 텍스트 입력
     updateSampleText();
+    // 메타데이터 입력란 추가
+    addMetaDataInput();
+    // 메타데이터 버튼 클릭
+    clickAddMetaDataBtn();
 });
 
 // Preview 클릭시 작성 프리뷰 영역을 표시하고 작성중인 글을 렌더링함
@@ -436,4 +440,58 @@ function txtDesignClassSpanImg(element, className, txt, imgPath) {
     var span = $('<span>');
     span.text(txt);
     element.append(span);
+}
+
+function addMetaDataInput() {
+    $("#add-meta-data-input-btn").on("click", function() {
+        var html =
+            "<div class='input-group mb-3 meta-data'>" +
+            "<input type='text' class='form-control meta-data-key' placeholder='Name'>" +
+            "<input type='text' class='form-control meta-data-value' placeholder='Value'>" +
+            "</div>";
+
+        $(this).before(html);
+    });
+}
+
+function clickAddMetaDataBtn() {
+    $("#add-meta-data-btn").on("click", function() {
+        var formData = new FormData();
+    
+        // meta-data클래스를 가진 요소의 키와 값을 각각 취득
+        $(".meta-data").each(function() {
+            var key = $(this).find(".meta-data-key").val();
+            var value = $(this).find(".meta-data-value").val();
+            
+            // 값이 없다면 스킵
+            if (key == '' || value == '') {
+                return true;
+            }
+
+            formData.append(key, value);
+        });
+
+        // 포스트ID
+        formData.append('post_id', $("#post-id").val());
+        // CSRF 토큰 가져오기
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        // Ajax 요청 보내기
+        $.ajax({
+            url: '/admin_post_update_meta_data',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            success: function(response) {
+                alert("メタデータ更新完了！");
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
+    });
 }

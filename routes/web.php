@@ -48,6 +48,8 @@ Route::post('/admin_post_create_exec', 'App\Http\Controllers\Admin\PostControlle
 Route::post('/admin_post_thumb_upload', 'App\Http\Controllers\Admin\PostController@ThumbUpload')->middleware('login');
 # 포스트에 이미지 추가
 Route::post('/admin_post_image_upload', 'App\Http\Controllers\Admin\PostController@ImageUpload')->middleware('login');
+# 메타데이터 갱신
+Route::post('/admin_post_update_meta_data', 'App\Http\Controllers\Admin\PostController@UpdateMetaData')->middleware('login');
 # 포스트 자동 저장
 Route::post('/admin_post_auto_edit_exec', 'App\Http\Controllers\Admin\PostController@AutoEditExec')->middleware('login');
 # 한국어 카테고리 리스트

@@ -269,4 +269,48 @@ class PostController extends Controller
 
 		return response()->json(['msg' => 'Auto save successed']);
 	}
+	
+	public function UpdateMetaData(Request $request) {
+		$request->validate([
+			'post_id' => 'required|integer',
+		]);
+		$post_id = $request->post_id;
+
+		// 포스트 검색
+		$post = \App\Models\Post::find($post_id);
+		if(is_null($post)) {
+			return response()->json(['error' => 'Not exist post'], 400);
+		}
+
+		// post_id를 제외한 나머지 데이터 취득
+		$metaDatas = $request->except('post_id');
+
+		$MetaDataRecords = [];
+		// key-value 연관배열을 배열화
+		foreach (array_keys($metaDatas) as $key) {
+			if ($key == null || $key == "") {
+				continue;
+			}
+			$value = $metaDatas[$key];
+			if ($value == null || $value == "") {
+				continue;
+			}
+
+			// 배열에 메타데이터 연관배열을 추가
+			array_push($MetaDataRecords, [
+				'post_id' => $post_id,
+				'key' => $key,
+				'value' => $value,
+			]);
+		}
+
+		// upsert 호출
+		\App\Models\PostMeta::upsert(
+			$MetaDataRecords,
+			['post_id', 'key'],
+			['value']
+		);
+
+		return response()->json(['msg' => 'Update meta data successed']);
+	}
 }
