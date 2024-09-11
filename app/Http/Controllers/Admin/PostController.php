@@ -287,30 +287,52 @@ class PostController extends Controller
 
 		$MetaDataRecords = [];
 		// key-value 연관배열을 배열화
-		foreach (array_keys($metaDatas) as $key) {
-			if ($key == null || $key == "") {
+		foreach (array_keys($metaDatas) as $name) {
+			if ($name == null || $name == "") {
 				continue;
 			}
-			$value = $metaDatas[$key];
-			if ($value == null || $value == "") {
+			$content = $metaDatas[$name];
+			if ($content == null || $content == "") {
 				continue;
 			}
 
 			// 배열에 메타데이터 연관배열을 추가
 			array_push($MetaDataRecords, [
 				'post_id' => $post_id,
-				'key' => $key,
-				'value' => $value,
+				'name' => $name,
+				'content' => $content,
 			]);
 		}
 
 		// upsert 호출
 		\App\Models\PostMeta::upsert(
 			$MetaDataRecords,
-			['post_id', 'key'],
-			['value']
+			['post_id', 'name'],
+			['content']
 		);
 
 		return response()->json(['msg' => 'Update meta data successed']);
+	}
+
+	// 메타데이터 삭제
+	public function DeleteMetaData(Request $request) {
+		$request->validate([
+			'post_id' => 'required|integer',
+			'name' => 'required',
+		]);
+		$post_id = $request->post_id;
+		$name = $request->name;
+
+		// 포스트 검색
+		$post = \App\Models\Post::find($post_id);
+		// 없는 포스트ID일 경우 에러 메세지
+		if (is_null($post)) {
+			return response()->json(['error' => 'Not exist post'], 400);
+		}
+
+		// 삭제
+		\App\Models\PostMeta::where('post_id', $post_id)->where('name', $name)->delete();
+
+		return response()->json(['msg' => 'delete meta data successed']);
 	}
 }

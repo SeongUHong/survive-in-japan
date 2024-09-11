@@ -6,7 +6,7 @@ use App\Logics\Util;
 
 class Post {
 	public $post;
-	public $postMetas = array(); // [ post_key => post_meta ]
+	public $postMetas = array();
 
 	// parameter : post model, [postMetas model]
 	public function Build($post, $postMetas) {
@@ -91,8 +91,10 @@ class Post {
 
 		$metas = [];
 		foreach ($this->postMetas as $postMeta) {
-			$metas['name'] = $postMeta->key;
-			$metas['content'] = $postMeta->value;
+			array_push($metas, [
+				'name' => $postMeta->name,
+				'content' => $postMeta->content,
+			]);
 		}
 
 		$resultArr['meta_list'] = $metas;

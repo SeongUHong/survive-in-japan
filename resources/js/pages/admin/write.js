@@ -35,6 +35,8 @@ $(document).ready(function() {
     addMetaDataInput();
     // 메타데이터 버튼 클릭
     clickAddMetaDataBtn();
+    // 메타데이터 삭제 버튼 클릭
+    deleteMetaDataBtn();
 });
 
 // Preview 클릭시 작성 프리뷰 영역을 표시하고 작성중인 글을 렌더링함
@@ -446,8 +448,8 @@ function addMetaDataInput() {
     $("#add-meta-data-input-btn").on("click", function() {
         var html =
             "<div class='input-group mb-3 meta-data'>" +
-            "<input type='text' class='form-control meta-data-key' placeholder='Name'>" +
-            "<input type='text' class='form-control meta-data-value' placeholder='Value'>" +
+            "<input type='text' class='form-control meta-data-name' placeholder='Name'>" +
+            "<input type='text' class='form-control meta-data-content' placeholder='Value'>"
             "</div>";
 
         $(this).before(html);
@@ -460,15 +462,15 @@ function clickAddMetaDataBtn() {
     
         // meta-data클래스를 가진 요소의 키와 값을 각각 취득
         $(".meta-data").each(function() {
-            var key = $(this).find(".meta-data-key").val();
-            var value = $(this).find(".meta-data-value").val();
+            var name = $(this).find(".meta-data-name").val();
+            var content = $(this).find(".meta-data-content").val();
             
             // 값이 없다면 스킵
-            if (key == '' || value == '') {
+            if (name == '' || content == '') {
                 return true;
             }
 
-            formData.append(key, value);
+            formData.append(name, content);
         });
 
         // 포스트ID
@@ -488,6 +490,49 @@ function clickAddMetaDataBtn() {
             },
             success: function(response) {
                 alert("メタデータ更新完了！");
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
+    });
+}
+
+function deleteMetaDataBtn() {
+    $(".delete-meta-data").on("click", function() {
+        // 실행 확인
+        if (!confirm("本当に削除?")) {
+            return;
+        }
+
+        var parent = $(this).parent();
+        var name = parent.find(".meta-data-name").val();
+        var content = $(this).find(".meta-data-content").val();
+
+        // 비어있을 경우 입력란만 삭제
+        if (name == '' || content == '') {
+            return;
+        }
+
+        var formData = new FormData();
+        formData.append('post_id', $("#post-id").val());
+        formData.append('name', name);
+
+        // CSRF 토큰 가져오기
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        $.ajax({
+            url: '/admin_post_delete_meta_data',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            success: function(response) {
+                parent.remove();
+                alert("メタデータ削除完了！");
             },
             error: function(error) {
                 console.error(error);

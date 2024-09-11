@@ -65,11 +65,10 @@
         <button class="btn btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#add-meta">メタデータ</button>
       </div>
       <div class="collapse" id="add-meta">
-        <div class="card card-body">
-          <div class="input-group mb-3 meta-data">
-            <input type="text" class="form-control meta-data-key" placeholder="Name">
-            <input type="text" class="form-control meta-data-value" placeholder="Value">
-          </div>
+        <div class="card card-body" id="meta-data-area">
+          @foreach ($post['meta_list'] as $meta_data)
+            @include('admin/post/_sub/meta_data_input', ['meta_data' => $meta_data])
+          @endforeach
           <button class="btn btn-light mb-3" type="button" id="add-meta-data-input-btn"><i class="bi bi-plus-circle"></i></button>
           <button class="btn btn-primary" type="button" id="add-meta-data-btn">メタデータ追加</button>
         </div>
