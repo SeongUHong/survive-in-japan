@@ -5,6 +5,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('/css/pages/post.css') }}">
     <title>{{ $post['title'] }}</title>
+    @foreach ($post['meta_list'] as $meta_data)
+      <meta name="{{ $meta_data['name'] }}" content="{{ $meta_data['content'] }}">
+    @endforeach
   </head>
   <body class="base-bg-color">
     <div class="container">
