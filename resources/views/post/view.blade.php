@@ -15,7 +15,7 @@
         <div class="col-md-2 col-1"></div>
         <div class="post-view-title col-md-8 col-10">
           <div class="main-title" id="main-top-title">
-            <img src="{{ asset('/i/main/title.png') }}" alt="survive in japan">
+            <img src="{{ asset('storage/i/main/title.png') }}" alt="survive in japan">
           </div>
           <img src="{{ '/' . \App\Consts\Image::READ_BASE_DIRECTORY . $post['thumb_path']}}">
           <h1>{{ $post['title'] }}</h1>

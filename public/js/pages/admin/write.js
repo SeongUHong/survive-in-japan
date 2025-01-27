@@ -573,7 +573,7 @@ function applyTxtDesign(targetElement) {
   } else if (designName == "either-side-line") {
     txtDesignClassSpan(targetElement, designName, text);
   } else if (designName == "center-symbol") {
-    txtDesignClassSpanImg(targetElement, designName, text, "/i/icon/lightbulb.svg");
+    txtDesignClassSpanImg(targetElement, designName, text, "/storage/i/icon/lightbulb.svg");
   }
   return targetElement;
 }

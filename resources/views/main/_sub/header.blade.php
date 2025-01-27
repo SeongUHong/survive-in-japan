@@ -3,14 +3,14 @@
   <div class="row">
     <div class="col-2"></div>
     <div class="main-top-title col-8" id="main-top-title">
-      <img src="{{ asset('/i/main/title.png') }}" class="img-fluid" alt="survive in japan">
+      <img src="{{ asset('storage/i/main/title.png') }}" class="img-fluid" alt="survive in japan">
     </div>
     <div class="col-2">
       @include('main/_sub/small_category_menu', ['categoryList' => $categoryList])
     </div>
   </div>
   <div class="main-top-bg">
-    <img src="{{ asset('/i/main/top_bg.png') }}" class="img-fluid" alt="survive in japan">
+    <img src="{{ asset('storage/i/main/top_bg.png') }}" class="img-fluid" alt="survive in japan">
   </div>
   <div class="main-top-category">
     @foreach($categoryList as $category)
@@ -32,7 +32,7 @@
     <div class="row">
       <div class="col-2"></div>
       <div class="main-top-small-fixed-bar-title col-8" id="main-top-small-fixed-bar-title">
-        <img src="{{ asset('/i/main/title.png') }}" class="img-fluid" alt="survive in japan">
+        <img src="{{ asset('storage/i/main/title.png') }}" class="img-fluid" alt="survive in japan">
       </div>
       <div class="col-2">
         @include('main/_sub/small_category_menu', ['categoryList' => $categoryList])
