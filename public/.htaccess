@@ -1,12 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # URL에서 블로그를 부분을 제외함
-    RewriteCond %{REQUEST_URI} !^/blog/
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ /blog/$1 [L]
-
     # Laravel 기본 설정 유지
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
