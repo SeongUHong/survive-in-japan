@@ -14,12 +14,16 @@ $(document).ready(function () {
   FixMenuBar();
   ClickTopScrollBtn();
 });
+var BASE_URL = "/blog";
+function Redirect(url) {
+  window.location.href = BASE_URL.url;
+}
 function ClickTopLogo() {
   $('#main-top-title').on('click', function () {
-    window.location.href = "/";
+    Redirect("/");
   });
   $('#main-top-small-fixed-bar-title').on('click', function () {
-    window.location.href = "/";
+    Redirect("/");
   });
 }
 
@@ -56,11 +60,11 @@ function ClickContentCard() {
   // 동적으로 생성된 요소에 클릭 이벤트 바인딩
   $(".main-middle-contents-box").on("click", ".main-middle-content", function () {
     var postId = $(this).data("post-id");
-    window.location.href = "/post_view/" + postId;
+    Redirect("/post_view/" + postId);
   });
   $(".main-middle-contents-box").on("click", ".main-middle-small-content", function () {
     var postId = $(this).data("post-id");
-    window.location.href = "/post_view/" + postId;
+    Redirect("/post_view/" + postId);
   });
 }
 
@@ -69,10 +73,10 @@ function ClickCategoryContent() {
   $(".category-content").on("click", function () {
     var categoryId = $(this).data("category-id");
     if (typeof categoryId == "undefined" || categoryId == null || categoryId == "") {
-      window.location.href = "/";
+      Redirect("/");
       return;
     }
-    window.location.href = "/category/" + categoryId;
+    Redirect("/category/" + categoryId);
   });
 }
 
